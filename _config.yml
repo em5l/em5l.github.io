@@ -21,7 +21,7 @@
 title: Elektromekanik
 email: unal.dana@ikc.edu.tr
 description: "Elektromekanik hakkindaki araştirmalarimi koyduğum yer."
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "/Documents/" # the subpath of your site, e.g. /blog
 url: "https://unalmee.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: unalmee
 # Build settings
