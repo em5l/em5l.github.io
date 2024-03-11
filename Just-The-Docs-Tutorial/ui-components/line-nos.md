@@ -3,7 +3,7 @@ layout: default
 title: Code with line numbers
 parent: Code
 grand_parent: UI Components
-permalink: /docs/ui-components/code/line-numbers/
+permalink: /Just-The-Docs-Tutorial/ui-components/code/line-numbers/
 ---
 
 # Code snippets with line numbers

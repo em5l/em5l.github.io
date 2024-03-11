@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Elektromekanik
+title: Unalmee
 email: unal.dana@ikc.edu.tr
 description: "Elektromekanik hakkindaki araştirmalarimi koyduğum yer."
 baseurl: "/Documents" # the subpath of your site, e.g. /blog

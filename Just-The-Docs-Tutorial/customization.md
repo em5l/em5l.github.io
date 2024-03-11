@@ -125,7 +125,7 @@ New (v0.4.0)
 
 To define new SCSS variables or functions, place SCSS code in `_sass/custom/setup.scss`. This should *not* be used for defining custom styles (see the next section) or overriding color scheme variables (in this case, you should create a new color scheme).
 
-This is most commonly-used to define [custom callout colors]({% link docs/configuration.md %}#callouts). For example,
+This is most commonly-used to define [custom callout colors]({% link Just-The-Docs-Tutorial/configuration.md %}#callouts). For example,
 
 ```scss
 // _sass/custom/setup.scss
@@ -179,7 +179,7 @@ New (v0.4.0)
 
 `_includes/toc_heading_custom.html`
 
-If the page has any child pages, and `has_toc` is not set to `false`, this content appears as a heading above the [auto-generating list of child pages]({% link docs/navigation-structure.md %}#auto-generating-table-of-contents) after the page's content.
+If the page has any child pages, and `has_toc` is not set to `false`, this content appears as a heading above the [auto-generating list of child pages]({% link Just-The-Docs-Tutorial/navigation-structure.md %}#auto-generating-table-of-contents) after the page's content.
 
 #### Example
 {: .no_toc }
@@ -195,7 +195,7 @@ The (optional) `text-delta` class makes the heading appear as **Contents**{:.tex
 
 `_includes/footer_custom.html`
 
-This content appears at the bottom of every page's main content. More info for this include can be found in the [Configuration - Footer content]({% link docs/configuration.md %}#footer-content).
+This content appears at the bottom of every page's main content. More info for this include can be found in the [Configuration - Footer content]({% link Just-The-Docs-Tutorial/configuration.md %}#footer-content).
 
 ### Custom Head
 
@@ -330,7 +330,7 @@ Future versions may subdivide components further; we guarantee that we will only
 
 ### Alternative layouts and example (`minimal`)
 
-Users can develop custom layouts that compose, omit, or add components differently. We provide one first-class example titled `minimal`, inspired by Kevin Lin's work in [just-the-class](https://github.com/kevinlin1/just-the-class). This `minimal` layout does not render the sidebar, header, or search. To see an example, visit the [minimal layout test]({{site.baseurl}}/docs/minimal-test/) page.
+Users can develop custom layouts that compose, omit, or add components differently. We provide one first-class example titled `minimal`, inspired by Kevin Lin's work in [just-the-class](https://github.com/kevinlin1/just-the-class). This `minimal` layout does not render the sidebar, header, or search. To see an example, visit the [minimal layout test]({{site.baseurl}}/Just-The-Docs-Tutorial/minimal-test/) page.
 
 Here is a simplified code example of what it looks like:
 

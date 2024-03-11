@@ -3,7 +3,7 @@ layout: default
 title: Utilities
 nav_order: 4
 has_children: true
-permalink: docs/Just-The-Docs-Tutorial/utilities
+permalink: Just-The-Docs-Tutorial/utilities
 ---
 
 # Utilities

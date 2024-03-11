@@ -3,7 +3,7 @@ layout: default
 title: UI Components
 nav_order: 3
 has_children: true
-permalink: docs/Just-The-Docs-Tutorial/ui-components
+permalink: Just-The-Docs-Tutorial/ui-components
 ---
 
 # UI Components
