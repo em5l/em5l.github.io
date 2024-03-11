@@ -3,6 +3,7 @@ layout: default
 title: Utilities
 nav_order: 4
 has_children: true
+parent: Just-The-Docs-Tutorial
 permalink: Just-The-Docs-Tutorial/utilities
 ---
 
