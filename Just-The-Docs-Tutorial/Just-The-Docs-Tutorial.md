@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: Just-The-Docs-Tutorial
 has_children: true
 nav_order: 2
 permalink: /Just-The-Docs-Tutorial

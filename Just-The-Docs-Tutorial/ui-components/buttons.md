@@ -3,6 +3,7 @@ layout: default
 title: Buttons
 parent: UI Components
 nav_order: 2
+grand_parent: Just-The-Docs-Tutorial
 ---
 
 # Buttons

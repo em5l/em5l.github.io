@@ -2,6 +2,7 @@
 layout: default
 title: Layout
 parent: Utilities
+grand_parent: Just-The-Docs-Tutorial
 ---
 
 # Layout Utilities

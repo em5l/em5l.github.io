@@ -2,6 +2,7 @@
 layout: default
 title: Callouts
 parent: UI Components
+grand_parent: Just-The-Docs-Tutorial
 nav_order: 7
 ---
 
