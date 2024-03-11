@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Configuration
-nav_order: 14
+nav_order: 2
+parent: Just-The-Docs-Tutorial
 ---
 
 # Configuration
