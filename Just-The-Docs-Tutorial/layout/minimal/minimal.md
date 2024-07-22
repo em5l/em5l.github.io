@@ -2,6 +2,7 @@
 title: A minimal layout page
 layout: minimal
 parent: Layout
+grand_parent: Just-The-Docs-Tutorial
 has_children: true
 ---
 
