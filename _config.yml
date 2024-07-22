@@ -18,12 +18,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Elektromekaniklab
+title: emklab
 email: unal.dana@ikc.edu.tr
 description: "Elektromekanik LAB Arşivi."
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://Elektromekaniklab.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-github_username: Elektromekaniklab
+baseurl: "/home" # the subpath of your site, e.g. /blog
+url: "https://emklab.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+github_username: emklab
 # Build settings
 remote_theme: just-the-docs/just-the-docs@v0.7.0
 logo: "/assets/images/Logo.png"
@@ -57,8 +57,8 @@ mermaid:
   # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
   version: "9.1.3"
 aux_links:
-  "Documents":
-    - "//github.com/Elektromekaniklab/Documents"
+  "Dökümanlar":
+    - "//github.com/emklab/home"
 aux_links_new_tab: true
 heading_anchors: true
 color_scheme: dark

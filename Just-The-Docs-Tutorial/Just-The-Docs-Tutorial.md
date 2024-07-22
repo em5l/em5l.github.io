@@ -1,11 +1,10 @@
 ---
-layout: default
-title: Just-The-Docs-Tutorial
-has_children: true
-nav_order: 2
-permalink: /Just-The-Docs-Tutorial
----
-
+#layout: default
+#title: Just-The-Docs-Tutorial
+#has_children: true
+#nav_order: 99
+#permalink: /Just-The-Docs-Tutorial
+#
 # Focus on writing good documentation
 {: .fs-9 }
 
