@@ -21,7 +21,7 @@
 title: Elektromekaniklab
 email: unal.dana@ikc.edu.tr
 description: "Elektromekanik Hakkında."
-baseurl: "/Documents" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://Elektromekaniklab.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: Elektromekaniklab
 # Build settings
