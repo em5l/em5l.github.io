@@ -51,14 +51,14 @@ search:
   rel_url: true
   # Enable or disable the search button that appears in the bottom right corner of every page
   # Supports true or false (default)
-  button: false
+  button: true
 mermaid:
   # Version of mermaid library
   # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
   version: "9.1.3"
 aux_links:
   "Dökümanlar":
-    - "//github.com/emklab/home"
+    - "//github.com/em5l/home"
 aux_links_new_tab: true
 heading_anchors: true
 color_scheme: dark
