@@ -157,7 +157,7 @@ D = diameter: 8 mm
 
 C = Circumference: π $\times$ 8 = 25,13 mm
 
-Length of Helix: $\sqrt{25.13^{2}+8^{2}}$ = 26,34 mm
+Length of Helix: $\sqrt{25.13} = 26,34 mm
 
 **Formula for converting stepper motor torque into force**
 
