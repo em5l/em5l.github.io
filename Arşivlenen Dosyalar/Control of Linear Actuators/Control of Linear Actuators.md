@@ -6,7 +6,7 @@ parent: Arşivlenen Dosyalar
 has_children: true
 permalink: /assets/control-of-linear-actuators
 ---
-*PDF Files*
+PDF Files 
 
 [Controlling Linear Actuator by Entering Length]({{(https://em5l.github.io)}}\home\assets\PDF\Mert Sürekci(Controlling-Linear-Actuator-by-Entering-Length).pdf)
 
