@@ -9,6 +9,8 @@ group :jekyll_plugins do
   gem "webrick"
   gem "jekyll-include-cache"
   gem "rake"
+  gem 'wdm', '>= 0.1.0'
+  gem 'jekyll-spaceship', group: :jekyll_plugins
 end
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
