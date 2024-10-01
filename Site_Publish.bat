@@ -13,7 +13,7 @@ cd "C:\Users\UnalWindows\Desktop\Elektromekanik Website\Documents" || exit /b 1
 :: Initialize git if not already initialized
 if not exist ".git" (
     git init
-    git remote add origin <your-repo-url>  :: Replace with your actual GitHub repository URL
+    git remote add origin <https://github.com/em5l/home>  :: Replace with your actual GitHub repository URL
 )
 
 :: Add, commit, and push changes
