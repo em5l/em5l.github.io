@@ -1,7 +1,7 @@
 @echo on
 
 :: Step 1: Go to the Jekyll site directory
-cd /d "C:\Users\UnalD\Desktop\Github\home" || exit /b 1
+cd /d "C:\Users\UnalD\Desktop\Github\EMSLAB" || exit /b 1
 
 :: Step 2: Clean previous build (optional)
 rmdir _site /s /q
@@ -10,10 +10,10 @@ rmdir _site /s /q
 call jekyll build || exit /b 1
 
 :: Step 4: Copy _site contents to EMSLAB repo
-xcopy _site\* "C:\Users\UnalD\Desktop\Github\EMSLAB" /s /e /y || exit /b 1
+xcopy _site\* "C:\Users\UnalD\Desktop\Github\EMSLAB"/s /e /y || exit /b 1
 
 :: Step 5: Go to the EMSLAB GitHub repo directory
-cd /d "C:\Users\UnalD\Desktop\Github\EMSLAB" || exit /b 1
+cd /d "C:\Users\UnalD\Desktop\Github\home" || exit /b 1
 
 :: Step 6: Initialize Git if needed
 if not exist ".git" (
