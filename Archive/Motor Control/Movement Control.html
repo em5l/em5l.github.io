@@ -19,4 +19,101 @@
 </li>
 </ul>
 </li>
-</ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search" role="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search EMSLAB" aria-label="Search EMSLAB" autocomplete="off"> <label for="search-input" class="search-label"><svg viewbox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> <nav aria-label="Auxiliary" class="aux-nav"> <ul class="aux-nav-list"> <li class="aux-nav-list-item"> <a href="//github.com/em5l/home" class="site-button" target="_blank" rel="noopener noreferrer"> Documents </a> </li> </ul> </nav> </div> <div class="main-content-wrap"> <nav aria-label="Breadcrumb" class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Archive.html">Archive</a></li> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Motor%20Control/Motor%20Control.html">Motor Control</a></li> <li class="breadcrumb-nav-list-item"><span>Movement Control</span></li> </ol> </nav> <div id="main-content" class="main-content"> <main> <p><strong>Controlling Linear Actuator by Entering Length</strong></p> <p><strong>A4988 Stepper Motor Pins:</strong></p> <p><img src="/assets/media/image1.png" alt="A4988 Stepper Motor Pins" width="500px"></p> <p><strong>Vdd and GND:</strong> Should be connected to the 5v and GND parts of the Arduino.</p> <p><strong>Vmot and GND:</strong> Should be connected to 12 volt and GND to provide the 12 volt needed by the stepper motor.</p> <p><strong>1A,1B,2A,2B:</strong> Pins to which the stepper motor is connected.</p> <p><strong>Dır:</strong> Controls the direction of the motor.</p> <p><strong>Step:</strong> Controls the steps.</p> <p><strong>MS1, MS2, MS3:</strong> Microstep Selection Pins.</p> <p><strong>Sleep and Reset:</strong> When they are connected to each other, the controller becomes active.</p> <p><strong>En:</strong> When the Enable pin is active, the motor is grounded. We can limit the power usage by making this pin active and passive.</p> <div class="table-wrapper"><table> <thead> <tr> <th>Micro step Mode</th> <th>MS1</th> <th>MS2</th> <th>MS3</th> </tr> </thead> <tbody> <tr> <td>Full Step</td> <td>low</td> <td>low</td> <td>low</td> </tr> <tr> <td>Half Step</td> <td>high</td> <td>low</td> <td>low</td> </tr> <tr> <td>Quarter Step</td> <td>low</td> <td>high</td> <td>low</td> </tr> <tr> <td>Eighth Step</td> <td>high</td> <td>high</td> <td>low</td> </tr> <tr> <td>Sixteenth Step</td> <td>high</td> <td>high</td> <td>high</td> </tr> </tbody> </table></div> <p>For one revolution needed steps are calculated as:</p> <p>Full Step mode:</p> <p>$$\frac{360}{1.8{^\circ}} = 200$$</p> <p>Half step:</p> <p>$$\frac{360}{0.9{^\circ}} = 400$$</p> <p>Quarter step:</p> <p>$$\frac{360}{0.45{^\circ}} = 800$$</p> <p>Eighth step:</p> <p>$$\frac{360}{0.225{^\circ}} = 1600$$</p> <p>Sixteenth step:</p> <p>$$\frac{360}{0.1125{^\circ}} = 3200$$</p> <p><strong>Stepper Motor Controller Connections:</strong></p> <p>Stepper motor model is: 17HS4401S</p> <p><img src="/assets/media/image2.png" alt="Stepper Motor" width="600px"></p> <p><strong>Trapezoidal lead screw motion principle:</strong></p> <p><img src="/assets/media/image3.png" alt="Lead Screw Principle" width="500px"></p> <p>The screw rotates, the nut does not rotate, the nut moves along the screw.</p> <p><strong>Linear Actuator:</strong></p> <p>Linear actuators are created by properly combining the stepper motor and trapezoidal lead screw. With each step of the stepper motor, the part attached to the screw shaft moves by the length of the Lead. It is used to move a load back and forth.</p> <p>$$L = p × n_s$$</p> <p>$$L = Lead of thread.$$</p> <p>$$P = Thread pitch.$$</p> <p>$$n_s = Number of thread starts.$$</p> <p><strong>Length Calculation in Code:</strong></p> <p>$$toplamAdim = (mmFinal / 8) × stepsPerRevolution$$</p> <p>The specified <code class="language-plaintext highlighter-rouge">stepsPerRevolution</code> is the number of steps required for the stepper motor to complete one revolution.</p> <p>The number of <code class="language-plaintext highlighter-rouge">starts</code> of the used shaft: $$n_s = 4$$</p> <p>Pitch value of shaft: $$p = 2$$</p> <p>Lead of thread: $$L = 8$$</p> <p>So when the <code class="language-plaintext highlighter-rouge">stepsPerRevolution</code> is completed, the shaft moves 8 mm. By multiplying the formula by 1/8, we ensure that the shaft moves 1 mm when the <code class="language-plaintext highlighter-rouge">stepsPerRevolution</code> is completed.</p> <p><strong>T8 Trapezoidal lead screw:</strong></p> <p><img src="/assets/media/image4.png" alt="T8 Lead Screw" width="500px"></p> <p><strong>Calculating the force created by the torque applied by the stepper motor on the shaft</strong></p> <p><img src="/assets/media/image5.jpeg" alt="Inclined Plane 1" width="500px"></p> <p><img src="/assets/media/image6.jpeg" alt="Inclined Plane 2" width="500px"></p> <p>h = length of lead: 8 mm<br> D = diameter: 8 mm<br> C = Circumference: π × 8 = 25,13 mm<br> Length of Helix: √(25.13² + 8²) = 26,34 mm</p> <p><strong>Formula for converting stepper motor torque into force</strong></p> <p><img src="/assets/media/image7.jpg" alt="Torque to Force Formula" width="500px"></p> <p><strong>Torque work formula and force work formula</strong></p> <p><img src="/assets/media/image8.jpg" alt="Torque Work Formula" width="500px"></p> <p><strong>Equality of the number of turns of the stepper motor and the shaft helix length</strong></p> <p><img src="/assets/media/image9.jpg" alt="Helix Length" width="500px"></p> <p>$$T_M = 430\ Nmm$$</p> <p>$$h = 8\ mm$$</p> <p>$$\sin(\alpha) = h / \text{length of helix} = 0.304 \Rightarrow \alpha = 18^\circ$$</p> <p>$$T_M = \frac{8F_N}{2\pi} \Rightarrow F_N = 338.58\ N$$</p> <p><img src="/assets/media/image10.jpeg" alt="Forces on Screw" width="500px"></p> <p>$$F_T = F_N \times \sin(18) = 104.62\ N$$</p> <p>$$F_\Ö = F_N \times \cos(18) = 322.01\ N$$</p> <p><img src="/assets/media/image11.jpeg" alt="Forces Diagram" width="500px"></p> <p><strong>When friction force acts:</strong></p> <p>Real life systems are under the influence of friction force. The situation where the force applied to the nut does not move the nut is called <strong>autoblocking</strong>.</p> <p>Autoblocking requirement:</p> <p><strong>α ≤ p</strong></p> <p><strong>Linear Actuator:</strong></p> <p><img src="/assets/media/image12.jpeg" alt="Linear Actuator" width="500px"></p> <p><strong>Controlling Linear Actuator by Entering Length in Arduino Uno</strong></p> <div class="code-example"> <p>#define dirPin 6 #define stepPin 7 #define controlPin 2 #define dirPin 6 #define stepPin 7 #define controlPin 2 #define MS1 3 #define MS2 4 #define MS3 5 #define stepsPerRevolution 200 #define joyX A0 #define joyY A1 double xValue; double yValue; double toplamAdim; #define mmFinal 50 int i; int son; double tMotor = 430 ; //stepper motor torque double d = 8 ; //diameter double h = 8 ; //lead double circumference; double lengthOfHelix; double fN; //force exerted by stepper motor double fT; //nut turning force double fA; //axial force double angle; double value; double angle2degree;</p> <p>void setup(){ pinMode(stepPin, OUTPUT); pinMode(dirPin, OUTPUT); pinMode(MS1, OUTPUT); pinMode(MS2, OUTPUT); pinMode(MS3, OUTPUT); Serial.begin(9600); }</p> <p>void loop() { // stepper motor torque force relationship formulas circumference = (3.1415 * d); lengthOfHelix = sqrt((pow(circumference,2) + pow(h,2))); value = h/lengthOfHelix; angle = asin(value); // output is radian: angle2degree = (angle * 180)/ 3,1415; fN = (( tMotor * 2 * (3.1415))/ h); fT = fN * sin(angle); // Input is radian: fA = fN * cos(angle); // Input is radian:</p> <p>Serial.print(“ angle “); Serial.print(angle2degree); Serial.print(“°”); Serial.print(“ fN value “); Serial.print(fN); Serial.print(“ fT value “); Serial.print(fT); Serial.print(“ fA value “); Serial.print(fA);</p> <p>// Microstep control settings: digitalWrite(MS1, LOW); digitalWrite(MS2, LOW); digitalWrite(MS3, LOW); toplamAdim = (mmFinal / 8) * stepsPerRevolution;</p> <p>// Set the spinning direction counterclockwise:</p> <p>if(mmFinal &gt; 0){ digitalWrite(dirPin, HIGH); if(son != 1){ for( i = 0; i &lt; toplamAdim; i++){</p> <p>digitalWrite(stepPin, HIGH); delayMicroseconds(2000); digitalWrite(stepPin, LOW); delayMicroseconds(2000); son = 1; } } } if(mmFinal &lt; 0){ // Set the spinning direction counterclockwise: digitalWrite(dirPin, LOW); if(son != 1){ for( i = 0; i &lt; -toplamAdim; i++){ digitalWrite(stepPin, HIGH); delayMicroseconds(2000); digitalWrite(stepPin, LOW); delayMicroseconds(2000); son = 1; } } } }</p> </div> </main> </div> </div> <button id="search-button" class="search-button btn-reset" aria-label="Focus on search"> <svg viewbox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg> </button> <div class="search-overlay"></div> </div> <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js"></script> <script> var config = {} ; mermaid.initialize(config); window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid')); </script> </body> </html>
+</ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search" role="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search EMSLAB" aria-label="Search EMSLAB" autocomplete="off"> <label for="search-input" class="search-label"><svg viewbox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> <nav aria-label="Auxiliary" class="aux-nav"> <ul class="aux-nav-list"> <li class="aux-nav-list-item"> <a href="//github.com/em5l/home" class="site-button" target="_blank" rel="noopener noreferrer"> Documents </a> </li> </ul> </nav> </div> <div class="main-content-wrap"> <nav aria-label="Breadcrumb" class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Archive.html">Archive</a></li> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Motor%20Control/Motor%20Control.html">Motor Control</a></li> <li class="breadcrumb-nav-list-item"><span>Movement Control</span></li> </ol> </nav> <div id="main-content" class="main-content"> <main> <p><strong>Controlling Linear Actuator by Entering Length</strong></p> <p><strong>A4988 Stepper Motor Pins:</strong></p> <p><img src="media/image1.png" alt="A4988 Stepper Motor Pins" width="500px"></p> <p><strong>Vdd and GND:</strong> Should be connected to the 5v and GND parts of the Arduino.</p> <p><strong>Vmot and GND:</strong> Should be connected to 12 volt and GND to provide the 12 volt needed by the stepper motor.</p> <p><strong>1A,1B,2A,2B:</strong> Pins to which the stepper motor is connected.</p> <p><strong>Dır:</strong> Controls the direction of the motor.</p> <p><strong>Step:</strong> Controls the steps.</p> <p><strong>MS1, MS2, MS3:</strong> Microstep Selection Pins.</p> <p><strong>Sleep and Reset:</strong> When they are connected to each other, the controller becomes active.</p> <p><strong>En:</strong> When the Enable pin is active, the motor is grounded. We can limit the power usage by making this pin active and passive.</p> <div class="table-wrapper"><table> <tbody> <tr> <td>Micro step Mode</td> <td>MS1</td> <td>MS2</td> <td>MS3</td> </tr> <tr> <td>Full Step</td> <td>low</td> <td>low</td> <td>low</td> </tr> <tr> <td>Half Step</td> <td>high</td> <td>low</td> <td>low</td> </tr> <tr> <td>Quarter Step</td> <td>low</td> <td>high</td> <td>low</td> </tr> <tr> <td>Eighth Step</td> <td>high</td> <td>high</td> <td>low</td> </tr> <tr> <td>Sixteenth Step</td> <td>high</td> <td>high</td> <td>high</td> </tr> </tbody> </table></div> <p>For one revolution needed steps are calculated as;</p> <p>Full Step mode</p> <p>$$\frac{360}{1.8{^\circ}} = 200$$</p> <p>Half step;</p> <p>$$\frac{360}{0.9{^\circ}} = 400$$</p> <p>Quarter step;</p> <p>$$\frac{360}{0.45{^\circ}} = 800$$</p> <p>Eighth step;</p> <p>$$\frac{360}{0.225{^\circ}} = 1600$$</p> <p>Sixteenth step;</p> <p>$$\frac{360}{0.1125{^\circ}} = 3200$$</p> <p><strong>Stepper Motor Controller Connections:</strong></p> <p>Stepper motor model is: 17HS4401S</p> <p><img src="media/image2.png" alt="" width="600in"></p> <p><strong>Trapezoidal lead screw motion principle:</strong></p> <p><img src="media/image3.png" alt=""></p> <p>The screw rotates, the nut does not rotate, the nut moves along the screw.</p> <p><strong>Linear Actuator:</strong></p> <p>Linear actuators are created by properly combining the stepper motor and trapezoidal lead screw. With each step of the stepper motor, the part attached to the screw shaft moves by the length of the Lead. It is used to move a load back and forth.</p> <p>$$L = p × n_s$$</p> <p>$$L = Lead of thread.$$</p> <p>$$P = Thread pitch.$$</p> <p>$$n_s = Number of thread starts.$$</p> <p><strong>Length Calculation in Code:</strong></p> <p>$$toplamAdim = (mmFinal / 8) × stepsPerRevolution$$</p> <p>The specified 'stepsPerRevolution' is the number of steps required for the stepper motor to complete one revolution. The specified 'stepsPerRevolution' is the number of steps required for the stepper motor to complete one revolution.</p> <p>$$L = p × n_s$$ The number of 'starts' of the used shaft: $$n_s = 4$$</p> <p>Pitch value of shaft: $$p = 2$$</p> <p>Lead of thread is : $$L = 8$$</p> <p>So when the 'stepsPerRevolution' is completed, the shaft moves 8 mm. By multiplying the formula by 1/8, we ensure that the shaft moves 1 mm when the 'stepsPerRevolution' is completed. In this way, we can determine the 'mmFinal' value as the length we want our part to move and ensure that it moves at the desired length. When we equate this equation to the toplamAdim command, we obtain the number of steps the stepper motor must take to cover the specified distance.</p> <p><strong>T8 Trapezoidal lead screw:</strong></p> <p><img src="media/image4.png" alt="" width="500in"></p> <p><strong>Calculating the force created by the torque applied by the stepper motor on the shaft</strong></p> <p>In order to find the force created by the motor torque on the pushed part, we first need to know the structure of the shaft. Trapezoidal shafts are similar in structure to inclined planes. While inclined planes gain force, they also cause loss in distance.</p> <p><img src="media/image5.jpeg" alt="" width="500in"></p> <p><img src="media/image6.jpeg" alt="" width="500in"></p> <p>h = length of lead: 8 mm</p> <p>D = diameter: 8 mm</p> <p>C = Circumference: π $\times$ 8 = 25,13 mm</p> <p>Length of Helix: $\sqrt{25.13^{2} + 8^{2}}$ = 26,34 mm</p> <p><strong>Formula for converting stepper motor torque into force</strong></p> <p><img src="media/image7.jpg" alt="" width="500in"></p> <p><strong>Torque work formula and force work formula</strong></p> <p><img src="media/image8.jpg" alt="" width="500in"></p> <p><strong>Equality of the number of turns of the stepper motor and the shaft helix length</strong></p> <p><img src="media/image9.jpg" alt="" width="500in"></p> <p>$$T_M = Stepper motor torque: 430Nmm$$</p> <p>$$h = 8 mm$$</p> <p>$$sin(α) = h / length of helix = 0,304 mm =&gt; α = 18°$$</p> <p>$$T_M = (8F_N)/(2π) =&gt; T_M = 1,27F_N =&gt; F_N = 338,58 N$$</p> <p><img src="media/image10.jpeg" alt="" width="500in"></p> <p>$$F_T = F_N × sin(18) =&gt; F_T = 104,62 N$$</p> <p>$$F_Ö = F_N × cos(18) =&gt; F_Ö = 322.01 N$$</p> <p><img src="media/image11.jpeg" alt="" width="500in"></p> <p><strong>when friction force acts:</strong></p> <p>Real life systems are under the influence of friction force. In order for systems to move, they must be under the influence of a force large enough to overcome the friction force. The reason why the nut does not move on the non-moving nuts of trapezoidal shafts is that there is no force large enough to overcome the friction force. The situation where the force applied to the nut does not move the nut is called <strong>autoblocking.</strong></p> <p>autoblocking requirement:</p> <p><strong>α ≤ p</strong></p> <p><strong>Linear Actuator:</strong></p> <p><img src="media/image12.jpeg" alt="" width="500in"></p> <p><strong>Controlling Linear Actuator by Entering Length in Arduino Uno</strong> (The relationship between the motor torque and the force pushing the nut is also explained.)</p> <div class="code-example"> <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>#define dirPin 6
+#define stepPin 7
+#define controlPin 2
+#define dirPin 6
+#define stepPin 7
+#define controlPin 2
+#define MS1 3
+#define MS2 4
+#define MS3 5
+#define stepsPerRevolution 200
+#define joyX A0
+#define joyY A1
+double xValue;
+double yValue; 
+double toplamAdim;
+#define mmFinal 50
+int i;
+int son;
+double tMotor = 430 ; //stepper motor torque
+double d = 8 ; //diameter
+double h = 8 ; //lead
+double circumference; 
+double lengthOfHelix;
+double fN; //force exerted by stepper motor
+double fT; //nut turning force
+double fA; //axial force
+double angle; 
+double value;
+double angle2degree;
+
+void setup(){
+  pinMode(stepPin, OUTPUT); 
+ pinMode(dirPin, OUTPUT); 
+  pinMode(MS1, OUTPUT);
+ pinMode(MS2, OUTPUT);
+  pinMode(MS3, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // stepper motor torque force relationship formulas
+  circumference = (3.1415 * d);
+  lengthOfHelix = sqrt((pow(circumference,2) + pow(h,2)));
+  value = h/lengthOfHelix;
+  angle = asin(value);  // output is radian:
+  angle2degree = (angle * 180)/ 3,1415;
+  fN = (( tMotor * 2 * (3.1415))/ h); 
+  fT = fN * sin(angle); // Input is radian:
+  fA = fN * cos(angle); // Input is radian:
+
+  Serial.print(" angle ");
+  Serial.print(angle2degree);
+  Serial.print("°");
+  Serial.print(" fN value ");
+  Serial.print(fN);
+  Serial.print(" fT value ");
+  Serial.print(fT);
+  Serial.print(" fA value ");
+  Serial.print(fA);
+
+  // Microstep control settings:
+ digitalWrite(MS1, LOW);
+ digitalWrite(MS2, LOW);
+ digitalWrite(MS3, LOW);
+ toplamAdim = (mmFinal / 8) * stepsPerRevolution;
+ 
+
+ // Set the spinning direction counterclockwise:
+  
+ if(mmFinal &gt; 0){
+  digitalWrite(dirPin, HIGH); 
+  if(son != 1){
+   for( i = 0; i &lt; toplamAdim; i++){
+
+   digitalWrite(stepPin, HIGH); 
+   delayMicroseconds(2000); 
+   digitalWrite(stepPin, LOW); 
+   delayMicroseconds(2000); 
+   son = 1;
+    }
+   }
+  }
+  if(mmFinal &lt; 0){
+   // Set the spinning direction counterclockwise:
+  digitalWrite(dirPin, LOW); 
+   if(son != 1){
+    for( i = 0; i &lt; -toplamAdim; i++){
+    digitalWrite(stepPin, HIGH); 
+    delayMicroseconds(2000); 
+    digitalWrite(stepPin, LOW); 
+    delayMicroseconds(2000); 
+    son = 1;
+    }
+   }
+  }
+ }
+</code></pre></div> </div> </div> </main> </div> </div> <button id="search-button" class="search-button btn-reset" aria-label="Focus on search"> <svg viewbox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg> </button> <div class="search-overlay"></div> </div> <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js"></script> <script> var config = {} ; mermaid.initialize(config); window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid')); </script> </body> </html>
