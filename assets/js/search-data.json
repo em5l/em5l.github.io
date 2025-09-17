@@ -21,103 +21,110 @@
     "relUrl": "/Archive/Archive.html"
   },"3": {
     "doc": "Basler",
-    "title": "PDF Files",
-    "content": "You can add links to your PDF files here: . | Basler Camera Datasheet | Pylon SDK Manual | . ",
-    "url": "/home/Archive/Vision%20Systems/Basler.html#pdf-files",
-    
-    "relUrl": "/Archive/Vision%20Systems/Basler.html#pdf-files"
-  },"4": {
-    "doc": "Basler",
     "title": "Using Harvesters with Pylon – Basic Tutorial",
-    "content": "This tutorial explains how to use the Harvesters Python library with Basler Pylon cameras and access camera nodes. 1. Install Dependencies . Make sure you have Pylon SDK installed and the harvesters Python package. ",
+    "content": "This tutorial explains how to use the Harvesters Python library with Basler Pylon cameras and access camera nodes. 1. Install Dependencies . Make sure you have Pylon SDK installed and the harvesters Python package. Also having opencv is important. ",
     "url": "/home/Archive/Vision%20Systems/Basler.html#using-harvesters-with-pylon--basic-tutorial",
     
     "relUrl": "/Archive/Vision%20Systems/Basler.html#using-harvesters-with-pylon--basic-tutorial"
+  },"4": {
+    "doc": "Basler",
+    "title": "2. Tryout example code",
+    "content": "This code will start your camera make sure the location of the cti file is correct. from harvesters.core import Harvester import cv2 import numpy as np # Initialize Harvester and add the CTI file h = Harvester() h.add_file(r\"C:\\Program Files\\Basler\\pylon\\Runtime\\x64\\ProducerU3V.cti\") h.update() # Discover cameras # Create an image acquirer (first detected camera) ia = h.create(0) try: # Start acquisition in a background thread # Limit the queue to 1 buffer by allowing frame drop ia.start(run_as_thread=True) print(\"Press 'q' to quit.\") while True: with ia.fetch() as buffer: # Convert raw data to a 2D NumPy array (grayscale) component = buffer.payload.components[0] img = component.data.reshape(component.height, component.width) # Display the live camera feed cv2.imshow(\"Live Camera View\", img) if cv2.waitKey(1) &amp; 0xFF == ord('q'): break finally: ia.stop() # Stop acquisition ia.destroy() # Release resources h.reset() # Reset Harvester cv2.destroyAllWindows() . ",
+    "url": "/home/Archive/Vision%20Systems/Basler.html#2-tryout-example-code",
+    
+    "relUrl": "/Archive/Vision%20Systems/Basler.html#2-tryout-example-code"
   },"5": {
+    "doc": "Basler",
+    "title": "3. Get nodes and Change values.",
+    "content": "This code provide all of the nodes associated with the camera and changes their values. # --- Setup Basler camera --- \"\"\" h = Harvester() h.add_file(r\"C:\\Program Files\\Basler\\pylon\\Runtime\\x64\\ProducerU3V.cti\") # or ProducerGEV.cti for GigE h.update() if not h.device_info_list: raise RuntimeError(\"No Basler cameras detected.\") ia = h.create(0) nm = ia.remote_device.node_map # ------------------------------- #ENABLE AcquisitionFrameRate # ------------------------------- if nm.has_node(\"AcquisitionFrameRateEnable\"): node_enable = nm.get_node(\"AcquisitionFrameRateEnable\") try: node_enable.value = True # enable frame rate control print(\"AcquisitionFrameRateEnable set to True\") except Exception as e: print(\"Failed to enable AcquisitionFrameRate:\", e) else: print(\"AcquisitionFrameRateEnable node not available\") # ------------------------------- #Read and change AcquisitionFrameRate # ------------------------------- if nm.has_node(\"AcquisitionFrameRate\"): node_fps = nm.get_node(\"AcquisitionFrameRate\") try: print(\"Current FPS:\", node_fps.value) print(\"Min FPS:\", node_fps.min) print(\"Max FPS:\", node_fps.max) # Set new frame rate safely within allowed range desired_fps = 60 if node_fps.min &lt;= desired_fps &lt;= node_fps.max: node_fps.value = desired_fps print(f\"AcquisitionFrameRate set to {desired_fps} fps\") except Exception as e: print(\"Failed to read/set AcquisitionFrameRate:\", e) else: print(\"AcquisitionFrameRate node not available\") # ------------------------------- #ENABLE DeviceLinkThroughputLimitMode # ------------------------------- if nm.has_node(\"DeviceLinkThroughputLimit\"): node_limit = nm.get_node(\"DeviceLinkThroughputLimit\") print(\"Current throughput limit:\", node_limit.value, \"Bytes/s\") # Example: limit to 80 MB/s desired_limit = 300_000_000 node_limit.value = desired_limit print(f\"DeviceLinkThroughputLimit set to {desired_limit} Bytes/s\") else: print(\"DeviceLinkThroughputLimit not available\") # ------------------------------- #Read and change DeviceLinkThroughputLimit # ------------------------------- if nm.has_node(\"DeviceLinkThroughputLimit\"): node_DeviceLinkThroughputLimit = nm.get_node(\"DeviceLinkThroughputLimit\") try: print(\"Current Bandwith:\", node_DeviceLinkThroughputLimit.value) # Set new frame rate safely within allowed range desired_DeviceLinkThroughputLimit = 210000000 # e.g. 70 MB/s node_DeviceLinkThroughputLimit.value = desired_DeviceLinkThroughputLimit print(f\"Babdwith set to {desired_DeviceLinkThroughputLimit} \") except Exception as e: print(\"Failed to read/set DeviceLinkThroughputLimit:\", e) else: print(\"DeviceLinkThroughputLimit node not available\") # ------------------------------- #Read and change BalanceWhiteAuto # ------------------------------- if nm.has_node(\"BalanceWhiteAuto\"): node_enable = nm.get_node(\"BalanceWhiteAuto\") try: node_enable.value = \"Continuous\" print(\"BalanceWhiteAuto set to Continuous\") except Exception as e: print(\"Failed to enable BalanceWhiteAuto:\", e) else: print(\"BalanceWhiteAuto node not available\") # ------------------------------- #Read and change PixelFormat # ------------------------------- if nm.has_node(\"PixelFormat\"): node_PixelFormat = nm.get_node(\"PixelFormat\") try: node_PixelFormat.value = \"Mono8\" print(\"PixelFormat set to:\",node_PixelFormat.value) except Exception as e: print(\"Failed to Set PixelFormat:\", e) else: print(\"PixelFormat node not available\") ia.start(run_as_thread=True) . Another example code just to get all avaible nodes. # --- Setup Basler camera --- from harvesters.core import Harvester h = Harvester() h.add_file(r\"C:\\Program Files\\Basler\\pylon\\Runtime\\x64\\ProducerU3V.cti\") # or ProducerGEV.cti h.update() if not h.device_info_list: raise RuntimeError(\"No Basler cameras detected.\") ia = h.create(0) nm = ia.remote_device.node_map # --- List all nodes using dir() --- print(\"All available nodes:\") for node_name in dir(nm): if not node_name.startswith(\"_\"): print(node_name) # --- OR list nodes more formally --- print(\"\\nNode names and types:\") for node_name in nm.node_names: node = nm.get_node(node_name) print(f\"{node_name}: {type(node)}\") . Ouput should be like: . ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__firstlineno__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__static_attributes__', '__str__', '__subclasshook__', '__weakref__', '_attributes', '_create_node_map', '_module', '_node_callback_proxy_dict', '_node_map', '_parent', '_remove_intermediate_file', '_retrieve_file_path', '_source_object', 'deregister_node_callback', 'deregister_node_callbacks', 'module', 'node_map', 'parent', 'port', 'register_event', 'register_node_callback'] &lt;genicam.genapi.NodeMap; proxy of &lt;Swig Object of type 'GENAPI_NAMESPACE::CNodeMapRef *' at 0x0000027013FE6880&gt; &gt; ['AcquisitionBurstFrameCount', 'AcquisitionControl', 'AcquisitionFrameRate', 'AcquisitionFrameRateEnable', 'AcquisitionMode', 'AcquisitionStart', 'AcquisitionStatus', 'AcquisitionStatusSelector', 'AcquisitionStop', 'AnalogControl', 'AutoExposureTimeLowerLimit', 'AutoExposureTimeUpperLimit', 'AutoFunctionControl', 'AutoFunctionProfile', 'AutoFunctionROIControl', 'AutoFunctionROIHeight', 'AutoFunctionROIOffsetX', 'AutoFunctionROIOffsetY', 'AutoFunctionROISelector', 'AutoFunctionROIUseBrightness', 'AutoFunctionROIUseWhiteBalance', 'AutoFunctionROIWidth', 'AutoGainLowerLimit', 'AutoGainUpperLimit', 'AutoTargetBrightness', 'BalanceRatio', 'BalanceRatioSelector', 'BalanceWhiteAuto', 'BinningHorizontal', 'BinningHorizontalMode', 'BinningVertical', 'BinningVerticalMode', 'BlackLevel', 'BlackLevelSelector', 'BslUSBSpeedMode', 'CenterX', 'CenterY', 'ChunkCounterSelector', 'ChunkCounterValue', 'ChunkData', 'ChunkDataControl', 'ChunkEnable', 'ChunkExposureTime', 'ChunkGain', 'ChunkGainSelector', 'ChunkLineStatusAll', 'ChunkModeActive', 'ChunkPayloadCRC16', 'ChunkSelector', 'ChunkSequencerSetActive', 'ChunkTimestamp', 'ColorAdjustmentHue', 'ColorAdjustmentSaturation', 'ColorAdjustmentSelector', 'ColorSpace', 'ColorTransformationSelector', 'ColorTransformationValue', 'ColorTransformationValueSelector', 'CounterAndTimerControl', 'CounterDuration', 'CounterEventSource', 'CounterReset', 'CounterResetActivation', 'CounterResetSource', 'CounterSelector', 'DecimationHorizontal', 'DecimationVertical', 'DemosaicingMode', 'DeviceControl', 'DeviceFirmwareVersion', 'DeviceLinkCurrentThroughput', 'DeviceLinkSelector', 'DeviceLinkSpeed', 'DeviceLinkThroughputLimit', 'DeviceLinkThroughputLimitMode', 'DeviceManufacturerInfo', 'DeviceModelName', 'DeviceReset', 'DeviceSFNCVersionMajor', 'DeviceSFNCVersionMinor', 'DeviceSFNCVersionSubMinor', 'DeviceScanType', 'DeviceSerialNumber', 'DeviceTemperature', 'DeviceTemperatureSelector', 'DeviceUserID', 'DeviceVendorName', 'DeviceVersion', 'DigitalIOControl', 'DigitalShift', 'EventControl', 'EventCriticalTemperature', 'EventCriticalTemperatureData', 'EventCriticalTemperatureTimestamp', 'EventExposureEnd', 'EventExposureEndData', 'EventExposureEndFrameID', 'EventExposureEndTimestamp', 'EventFrameBurstStart', 'EventFrameBurstStartData', 'EventFrameBurstStartFrameID', 'EventFrameBurstStartOvertrigger', 'EventFrameBurstStartOvertriggerData', 'EventFrameBurstStartOvertriggerFrameID', 'EventFrameBurstStartOvertriggerTimestamp', 'EventFrameBurstStartTimestamp', 'EventFrameBurstStartWait', 'EventFrameBurstStartWaitData', 'EventFrameBurstStartWaitTimestamp', 'EventFrameStart', 'EventFrameStartData', 'EventFrameStartFrameID', 'EventFrameStartOvertrigger', 'EventFrameStartOvertriggerData', 'EventFrameStartOvertriggerFrameID', 'EventFrameStartOvertriggerTimestamp', 'EventFrameStartTimestamp', 'EventFrameStartWait', 'EventFrameStartWaitData', 'EventFrameStartWaitTimestamp', 'EventNotification', 'EventOverTemperature', 'EventOverTemperatureData', 'EventOverTemperatureTimestamp', 'EventSelector', 'EventTest', 'EventTestData', 'EventTestTimestamp', 'ExpertFeatureAccess', 'ExpertFeatureAccessKey', 'ExpertFeatureAccessSelector', 'ExpertFeatureEnable', 'ExposureAuto', 'ExposureMode', 'ExposureOverlapTimeMax', 'ExposureOverlapTimeMode', 'ExposureTime', 'FileAccessBuffer', 'FileAccessControl', 'FileAccessLength', 'FileAccessOffset', 'FileOpenMode', 'FileOperationExecute', 'FileOperationResult', 'FileOperationSelector', 'FileOperationStatus', 'FileSelector', 'FileSize', 'Gain', 'GainAuto', 'GainSelector', 'Gamma', 'Height', 'HeightMax', 'ImageFormatControl', 'ImageQualityControl', 'LUTControl', 'LUTEnable', 'LUTIndex', 'LUTSelector', 'LUTValue', 'LUTValueAll', 'LightSourcePreset', 'LineDebouncerTime', 'LineFormat', 'LineInverter', 'LineLogic', 'LineMinimumOutputPulseWidth', 'LineMode', 'LineOverloadStatus', 'LineSelector', 'LineSource', 'LineStatus', 'LineStatusAll', 'NoiseReduction', 'OffsetX', 'OffsetY', 'PGIControl', 'PayloadSize', 'PixelColorFilter', 'PixelDynamicRangeMax', 'PixelDynamicRangeMin', 'PixelFormat', 'PixelSize', 'RemoveParameterLimit', 'RemoveParameterLimitControl', 'RemoveParameterLimitSelector', 'ResultingFrameRate', 'ReverseX', 'ReverseY', 'Root', 'SIPayloadFinalTransfer1Size', 'SIPayloadFinalTransfer2Size', 'SIPayloadTransferCount', 'SIPayloadTransferSize', 'ScalingHorizontal', 'ScalingVertical', 'SensorHeight', 'SensorReadoutMode', 'SensorReadoutTime', 'SensorWidth', 'SequencerConfigurationMode', 'SequencerControl', 'SequencerMode', 'SequencerPathSelector', 'SequencerSetActive', 'SequencerSetLoad', 'SequencerSetNext', 'SequencerSetSave', 'SequencerSetSelector', 'SequencerSetStart', 'SequencerTriggerActivation', 'SequencerTriggerSource', 'SharpnessEnhancement', 'ShutterMode', 'SoftwareSignalControl', 'SoftwareSignalPulse', 'SoftwareSignalSelector', 'TemperatureState', 'TestImageResetAndHold', 'TestImageSelector', 'TestPendingAck', 'TimerDelay', 'TimerDuration', 'TimerSelector', 'TimerTriggerSource', 'TimestampLatch', 'TimestampLatchValue', 'TransportLayerControl', 'TriggerActivation', 'TriggerDelay', 'TriggerEventTest', 'TriggerMode', 'TriggerSelector', 'TriggerSoftware', 'TriggerSource', 'UserDefinedValue', 'UserDefinedValueControl', 'UserDefinedValueSelector', 'UserOutputSelector', 'UserOutputValue', 'UserOutputValueAll', 'UserSetControl', 'UserSetDefault', 'UserSetLoad', 'UserSetSave', 'UserSetSelector', 'Width', 'WidthMax', 'clear_xml_cache', 'concatenated_write', 'connect', 'device_info', 'disconnect', 'get_node', 'has_node', 'load_xml_from_file', 'load_xml_from_string', 'load_xml_from_zip_file', 'nodes', 'parse_swiss_knives', 'pointer', 'poll', 'this', 'thisown'] . ",
+    "url": "/home/Archive/Vision%20Systems/Basler.html#3-get-nodes-and-change-values",
+    
+    "relUrl": "/Archive/Vision%20Systems/Basler.html#3-get-nodes-and-change-values"
+  },"6": {
     "doc": "Basler",
     "title": "Basler",
     "content": " ",
     "url": "/home/Archive/Vision%20Systems/Basler.html",
     
     "relUrl": "/Archive/Vision%20Systems/Basler.html"
-  },"6": {
+  },"7": {
     "doc": "DS-PIC",
     "title": "DS-PIC",
     "content": "Step 1: Install the setup file for your operating system from the zip file named mikroprog-pic-dspic-pic32-drivers.zip . Step 2: Install the setup file from the zip file named mikroprog-suite-pic-dspic-pic32-programming-software-setup-v290.zip . Step 3: The program should be opened without the microcontroller being inserted. (On some computers, if it is inserted before opening the program, an error may occur.) . Step 4: As shown in the photo, click on the Load button to load the .hex file you created. Then, click on the Write button to program the microcontroller. Finally, press the Verify button to check if the code was successfully written. Example Code: . #include &lt;30F6014A.h&gt; // Configuration fuses #fuses NOWDT, HS, NOPROTECT, NOPUT, NOBROWNOUT // Clock frequency #use delay(clock=20000000) // 20 MHz external crystal (adjustable) void main() { set_tris_b(0xFFFD); // Set RB1 as output or set_tris_b(0b1111101) output_low(PIN_B1); while(TRUE) { output_toggle(PIN_B1); // Toggle the RB1 delay_ms(500); } } . ",
     "url": "/home/Archive/Microcontrollers/DS-PIC.html",
     
     "relUrl": "/Archive/Microcontrollers/DS-PIC.html"
-  },"7": {
+  },"8": {
     "doc": "Microcontrollers",
     "title": "Microcontrollers",
     "content": " ",
     "url": "/home/Archive/Microcontrollers/Microcontrollers.html",
     
     "relUrl": "/Archive/Microcontrollers/Microcontrollers.html"
-  },"8": {
+  },"9": {
     "doc": "Motor Control",
     "title": "PDF Files",
     "content": "Controlling Linear Actuator by Entering Length . Stepper Motor Control with Joystick . Moving Timing Belt Linear Actuator with length . Moving Timing Belt Linear Actuator with Joystick . ",
     "url": "/home/Archive/Motor%20Control/Motor%20Control.html#pdf-files",
     
     "relUrl": "/Archive/Motor%20Control/Motor%20Control.html#pdf-files"
-  },"9": {
+  },"10": {
     "doc": "Motor Control",
     "title": "Motor Control",
     "content": " ",
     "url": "/home/Archive/Motor%20Control/Motor%20Control.html",
     
     "relUrl": "/Archive/Motor%20Control/Motor%20Control.html"
-  },"10": {
+  },"11": {
     "doc": "Movement Control",
     "title": "Movement Control",
     "content": "Controlling Linear Actuator by Entering Length . A4988 Stepper Motor Pins: . Vdd and GND: Should be connected to the 5v and GND parts of the Arduino. Vmot and GND: Should be connected to 12 volt and GND to provide the 12 volt needed by the stepper motor. 1A,1B,2A,2B: Pins to which the stepper motor is connected. Dır: Controls the direction of the motor. Step: Controls the steps. MS1, MS2, MS3: Microstep Selection Pins. Sleep and Reset: When they are connected to each other, the controller becomes active. En: When the Enable pin is active, the motor is grounded. We can limit the power usage by making this pin active and passive. | Micro step Mode | MS1 | MS2 | MS3 | . | Full Step | low | low | low | . | Half Step | high | low | low | . | Quarter Step | low | high | low | . | Eighth Step | high | high | low | . | Sixteenth Step | high | high | high | . For one revolution needed steps are calculated as: . Full Step mode: . $$\\frac{360}{1.8{^\\circ}} = 200$$ . Half step: . $$\\frac{360}{0.9{^\\circ}} = 400$$ . Quarter step: . $$\\frac{360}{0.45{^\\circ}} = 800$$ . Eighth step: . $$\\frac{360}{0.225{^\\circ}} = 1600$$ . Sixteenth step: . $$\\frac{360}{0.1125{^\\circ}} = 3200$$ . Stepper Motor Controller Connections: . Stepper motor model is: 17HS4401S . Trapezoidal lead screw motion principle: . The screw rotates, the nut does not rotate, the nut moves along the screw. Linear Actuator: . Linear actuators are created by properly combining the stepper motor and trapezoidal lead screw. With each step of the stepper motor, the part attached to the screw shaft moves by the length of the Lead. It is used to move a load back and forth. $$L = p × n_s$$ . $$L = Lead of thread.$$ . $$P = Thread pitch.$$ . $$n_s = Number of thread starts.$$ . Length Calculation in Code: . $$toplamAdim = (mmFinal / 8) × stepsPerRevolution$$ . The specified stepsPerRevolution is the number of steps required for the stepper motor to complete one revolution. The number of starts of the used shaft: $$n_s = 4$$ . Pitch value of shaft: $$p = 2$$ . Lead of thread: $$L = 8$$ . So when the stepsPerRevolution is completed, the shaft moves 8 mm. By multiplying the formula by 1/8, we ensure that the shaft moves 1 mm when the stepsPerRevolution is completed. T8 Trapezoidal lead screw: . Calculating the force created by the torque applied by the stepper motor on the shaft . h = length of lead: 8 mm D = diameter: 8 mm C = Circumference: π × 8 = 25,13 mm Length of Helix: √(25.13² + 8²) = 26,34 mm . Formula for converting stepper motor torque into force . Torque work formula and force work formula . Equality of the number of turns of the stepper motor and the shaft helix length . $$T_M = 430\\ Nmm$$ . $$h = 8\\ mm$$ . $$\\sin(\\alpha) = h / \\text{length of helix} = 0.304 \\Rightarrow \\alpha = 18^\\circ$$ . $$T_M = \\frac{8F_N}{2\\pi} \\Rightarrow F_N = 338.58\\ N$$ . $$F_T = F_N \\times \\sin(18) = 104.62\\ N$$ . $$F_\\Ö = F_N \\times \\cos(18) = 322.01\\ N$$ . When friction force acts: . Real life systems are under the influence of friction force. The situation where the force applied to the nut does not move the nut is called autoblocking. Autoblocking requirement: . α ≤ p . Linear Actuator: . Controlling Linear Actuator by Entering Length in Arduino Uno . #define dirPin 6 #define stepPin 7 #define controlPin 2 #define dirPin 6 #define stepPin 7 #define controlPin 2 #define MS1 3 #define MS2 4 #define MS3 5 #define stepsPerRevolution 200 #define joyX A0 #define joyY A1 double xValue; double yValue; double toplamAdim; #define mmFinal 50 int i; int son; double tMotor = 430 ; //stepper motor torque double d = 8 ; //diameter double h = 8 ; //lead double circumference; double lengthOfHelix; double fN; //force exerted by stepper motor double fT; //nut turning force double fA; //axial force double angle; double value; double angle2degree; . void setup(){ pinMode(stepPin, OUTPUT); pinMode(dirPin, OUTPUT); pinMode(MS1, OUTPUT); pinMode(MS2, OUTPUT); pinMode(MS3, OUTPUT); Serial.begin(9600); } . void loop() { // stepper motor torque force relationship formulas circumference = (3.1415 * d); lengthOfHelix = sqrt((pow(circumference,2) + pow(h,2))); value = h/lengthOfHelix; angle = asin(value); // output is radian: angle2degree = (angle * 180)/ 3,1415; fN = (( tMotor * 2 * (3.1415))/ h); fT = fN * sin(angle); // Input is radian: fA = fN * cos(angle); // Input is radian: . Serial.print(“ angle “); Serial.print(angle2degree); Serial.print(“°”); Serial.print(“ fN value “); Serial.print(fN); Serial.print(“ fT value “); Serial.print(fT); Serial.print(“ fA value “); Serial.print(fA); . // Microstep control settings: digitalWrite(MS1, LOW); digitalWrite(MS2, LOW); digitalWrite(MS3, LOW); toplamAdim = (mmFinal / 8) * stepsPerRevolution; . // Set the spinning direction counterclockwise: . if(mmFinal &gt; 0){ digitalWrite(dirPin, HIGH); if(son != 1){ for( i = 0; i &lt; toplamAdim; i++){ . digitalWrite(stepPin, HIGH); delayMicroseconds(2000); digitalWrite(stepPin, LOW); delayMicroseconds(2000); son = 1; } } } if(mmFinal &lt; 0){ // Set the spinning direction counterclockwise: digitalWrite(dirPin, LOW); if(son != 1){ for( i = 0; i &lt; -toplamAdim; i++){ digitalWrite(stepPin, HIGH); delayMicroseconds(2000); digitalWrite(stepPin, LOW); delayMicroseconds(2000); son = 1; } } } } . ",
     "url": "/home/Archive/Motor%20Control/Movement%20Control.html",
     
     "relUrl": "/Archive/Motor%20Control/Movement%20Control.html"
-  },"11": {
+  },"12": {
     "doc": "Python",
     "title": "PDF Files",
     "content": " ",
     "url": "/home/Archive/Python/Python.html#pdf-files",
     
     "relUrl": "/Archive/Python/Python.html#pdf-files"
-  },"12": {
+  },"13": {
     "doc": "Python",
     "title": "Python",
     "content": " ",
     "url": "/home/Archive/Python/Python.html",
     
     "relUrl": "/Archive/Python/Python.html"
-  },"13": {
+  },"14": {
     "doc": "Robotics Toolbox",
     "title": "PDF Files",
     "content": " ",
     "url": "/home/Archive/Python/Robotics%20Toolbox.html#pdf-files",
     
     "relUrl": "/Archive/Python/Robotics%20Toolbox.html#pdf-files"
-  },"14": {
+  },"15": {
     "doc": "Robotics Toolbox",
     "title": "Robotics Toolbox",
     "content": " ",
     "url": "/home/Archive/Python/Robotics%20Toolbox.html",
     
     "relUrl": "/Archive/Python/Robotics%20Toolbox.html"
-  },"15": {
+  },"16": {
     "doc": "Vision Systems",
     "title": "PDF Files",
     "content": " ",
     "url": "/home/Archive/Vision%20Systems/Vision%20Systems.html#pdf-files",
     
     "relUrl": "/Archive/Vision%20Systems/Vision%20Systems.html#pdf-files"
-  },"16": {
+  },"17": {
     "doc": "Vision Systems",
     "title": "Vision Systems",
     "content": " ",
     "url": "/home/Archive/Vision%20Systems/Vision%20Systems.html",
     
     "relUrl": "/Archive/Vision%20Systems/Vision%20Systems.html"
-  },"17": {
+  },"18": {
     "doc": "Main Page",
     "title": "Main Page",
     "content": "This site serves as an open archive of all student projects conducted in the Electromechanical Systems Laboratory at İzmir Katip Çelebi University, providing documentation to assist future students. ",
