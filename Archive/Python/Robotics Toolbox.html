@@ -21,4 +21,1146 @@
 </li>
 </ul>
 </li>
-</ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search" role="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search EMSLAB" aria-label="Search EMSLAB" autocomplete="off"> <label for="search-input" class="search-label"><svg viewbox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> <nav aria-label="Auxiliary" class="aux-nav"> <ul class="aux-nav-list"> <li class="aux-nav-list-item"> <a href="//github.com/em5l/home" class="site-button" target="_blank" rel="noopener noreferrer"> Documents </a> </li> </ul> </nav> </div> <div class="main-content-wrap"> <nav aria-label="Breadcrumb" class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Archive.html">Archive</a></li> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Python/Python.html">Python</a></li> <li class="breadcrumb-nav-list-item"><span>Robotics Toolbox</span></li> </ol> </nav> <div id="main-content" class="main-content"> <main> <h2 id="pdf-files"> <a href="#pdf-files" class="anchor-heading" aria-labelledby="pdf-files"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> PDF Files </h2> </main> </div> </div> <button id="search-button" class="search-button btn-reset" aria-label="Focus on search"> <svg viewbox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg> </button> <div class="search-overlay"></div> </div> <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js"></script> <script> var config = {} ; mermaid.initialize(config); window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid')); </script> </body> </html>
+</ul> </nav> <footer class="site-footer"> This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll. </footer> </div> <div class="main" id="top"> <div id="main-header" class="main-header"> <div class="search" role="search"> <div class="search-input-wrap"> <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search EMSLAB" aria-label="Search EMSLAB" autocomplete="off"> <label for="search-input" class="search-label"><svg viewbox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label> </div> <div id="search-results" class="search-results"></div> </div> <nav aria-label="Auxiliary" class="aux-nav"> <ul class="aux-nav-list"> <li class="aux-nav-list-item"> <a href="//github.com/em5l/home" class="site-button" target="_blank" rel="noopener noreferrer"> Documents </a> </li> </ul> </nav> </div> <div class="main-content-wrap"> <nav aria-label="Breadcrumb" class="breadcrumb-nav"> <ol class="breadcrumb-nav-list"> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Archive.html">Archive</a></li> <li class="breadcrumb-nav-list-item"><a href="/home/Archive/Python/Python.html">Python</a></li> <li class="breadcrumb-nav-list-item"><span>Robotics Toolbox</span></li> </ol> </nav> <div id="main-content" class="main-content"> <main> <h1 id="complete-guide-to-spatialmath-python-and-roboticstoolbox-python"> <a href="#complete-guide-to-spatialmath-python-and-roboticstoolbox-python" class="anchor-heading" aria-labelledby="complete-guide-to-spatialmath-python-and-roboticstoolbox-python"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Complete Guide to Spatialmath-Python and Roboticstoolbox-Python </h1> <p>This notebook provides a comprehensive guide to working with spatial mathematics and robotics using Python. It covers:</p> <ul> <li>Basic spatial mathematics operations</li> <li>Transforms and rotations</li> <li>Robot modeling and kinematics</li> <li>Trajectory planning with visualization</li> <li>3D visualization</li> </ul> <p>**Author:** Ahmed Numan Pervane - IKCU|EMS LAB <br> <strong>Last Updated:</strong> September 2025</p> <h2 id="1-installation-and-setup"> <a href="#1-installation-and-setup" class="anchor-heading" aria-labelledby="1-installation-and-setup"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 1. Installation and Setup </h2> <p>First, install the required libraries. This may take a few minutes.</p> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Install required packages
+</span><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">spatialmath</span><span class="o">-</span><span class="n">python</span> <span class="n">roboticstoolbox</span><span class="o">-</span><span class="n">python</span> <span class="n">matplotlib</span> <span class="n">scipy</span> <span class="o">-</span><span class="n">q</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span><span class="o">==</span><span class="mf">1.26</span><span class="p">.</span><span class="mi">4</span> <span class="c1"># You must restart the session after that code block proceed. Then you may continue to run below code blocks
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"✓ Installation complete!"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import libraries
+</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">spatialmath</span> <span class="kn">import</span> <span class="n">SE3</span><span class="p">,</span> <span class="n">SO3</span><span class="p">,</span> <span class="n">UnitQuaternion</span>
+<span class="kn">from</span> <span class="nn">spatialmath.base</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">roboticstoolbox</span> <span class="k">as</span> <span class="n">rtb</span>
+<span class="kn">from</span> <span class="nn">roboticstoolbox</span> <span class="kn">import</span> <span class="n">DHRobot</span><span class="p">,</span> <span class="n">RevoluteDH</span><span class="p">,</span> <span class="n">PrismaticDH</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+
+<span class="c1"># Set up plotting
+</span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'figure.figsize'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"✓ Libraries imported successfully!"</span><span class="p">)</span>
+</code></pre></div></div> <h2 id="2-basic-spatial-mathematics-operations"> <a href="#2-basic-spatial-mathematics-operations" class="anchor-heading" aria-labelledby="2-basic-spatial-mathematics-operations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2. Basic Spatial Mathematics Operations </h2> <p>Let’s explore fundamental spatial math concepts including rotation matrices, translation vectors, and homogeneous transformations.</p> <h3 id="21-rotation-matrices"> <a href="#21-rotation-matrices" class="anchor-heading" aria-labelledby="21-rotation-matrices"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2.1 Rotation Matrices </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create rotation matrices around different axes
+</span><span class="n">R_x</span> <span class="o">=</span> <span class="n">rotx</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>  <span class="c1"># Rotate 45° around X-axis
+</span><span class="n">R_y</span> <span class="o">=</span> <span class="n">roty</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>  <span class="c1"># Rotate 30° around Y-axis
+</span><span class="n">R_z</span> <span class="o">=</span> <span class="n">rotz</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>  <span class="c1"># Rotate 60° around Z-axis
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Rotation around X-axis (45°):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R_x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Rotation around Y-axis (30°):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R_y</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Rotation around Z-axis (60°):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R_z</span><span class="p">)</span>
+
+<span class="c1"># Combine rotations
+</span><span class="n">R_combined</span> <span class="o">=</span> <span class="n">R_z</span> <span class="o">@</span> <span class="n">R_y</span> <span class="o">@</span> <span class="n">R_x</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Combined rotation (Z*Y*X):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R_combined</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Rotation around X-axis (45°):
+[[ 1.          0.          0.        ]
+ [ 0.          0.70710678 -0.70710678]
+ [ 0.          0.70710678  0.70710678]]
+
+Rotation around Y-axis (30°):
+[[ 0.8660254  0.         0.5      ]
+ [ 0.         1.         0.       ]
+ [-0.5        0.         0.8660254]]
+
+Rotation around Z-axis (60°):
+[[ 0.5       -0.8660254  0.       ]
+ [ 0.8660254  0.5        0.       ]
+ [ 0.         0.         1.       ]]
+
+Combined rotation (Z*Y*X):
+[[ 0.4330127  -0.43559574  0.78914913]
+ [ 0.75        0.65973961 -0.04736717]
+ [-0.5         0.61237244  0.61237244]]
+</code></pre></div></div> <h3 id="22-using-so3-class-for-rotations"> <a href="#22-using-so3-class-for-rotations" class="anchor-heading" aria-labelledby="22-using-so3-class-for-rotations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2.2 Using SO3 Class for Rotations </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create SO3 rotation objects
+</span><span class="n">R1</span> <span class="o">=</span> <span class="n">SO3</span><span class="p">.</span><span class="n">Rx</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">R2</span> <span class="o">=</span> <span class="n">SO3</span><span class="p">.</span><span class="n">Ry</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">R3</span> <span class="o">=</span> <span class="n">SO3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"SO3 Rotation object:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R1</span><span class="p">)</span>
+
+<span class="c1"># Access the rotation matrix
+</span><span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Rotation matrix:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R1</span><span class="p">.</span><span class="n">R</span><span class="p">)</span>
+
+<span class="c1"># Convert to different representations
+</span><span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Roll-Pitch-Yaw angles (degrees):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R1</span><span class="p">.</span><span class="n">rpy</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Euler angles ZYX (degrees):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">R1</span><span class="p">.</span><span class="n">eul</span><span class="p">(</span><span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">))</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SO3 Rotation object:
+   1         0         0         
+   0         0.7071   -0.7071    
+   0         0.7071    0.7071    
+
+
+Rotation matrix:
+[[ 1.          0.          0.        ]
+ [ 0.          0.70710678 -0.70710678]
+ [ 0.          0.70710678  0.70710678]]
+
+Roll-Pitch-Yaw angles (degrees):
+[45. -0.  0.]
+
+Euler angles ZYX (degrees):
+[-90.  45.  90.]
+</code></pre></div></div> <h3 id="23-unit-quaternions"> <a href="#23-unit-quaternions" class="anchor-heading" aria-labelledby="23-unit-quaternions"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 2.3 Unit Quaternions </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create quaternions
+</span><span class="n">q1</span> <span class="o">=</span> <span class="n">UnitQuaternion</span><span class="p">.</span><span class="n">Rx</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="n">UnitQuaternion</span><span class="p">.</span><span class="n">Ry</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Quaternion for 45° rotation around X:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Quaternion components [s, vx, vy, vz]: </span><span class="si">{</span><span class="n">q1</span><span class="p">.</span><span class="n">vec</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Quaternion multiplication
+</span><span class="n">q_combined</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">*</span> <span class="n">q2</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Combined quaternion (q1 * q2):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">q_combined</span><span class="p">)</span>
+
+<span class="c1"># Convert to rotation matrix
+</span><span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Rotation matrix from quaternion:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">q_combined</span><span class="p">.</span><span class="n">R</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Quaternion for 45° rotation around X:
+ 0.9239 &lt;&lt;  0.3827,  0.0000,  0.0000 &gt;&gt;
+
+Quaternion components [s, vx, vy, vz]: [0.92387953 0.38268343 0.         0.        ]
+
+Combined quaternion (q1 * q2):
+ 0.8924 &lt;&lt;  0.3696,  0.2391,  0.0990 &gt;&gt;
+
+Rotation matrix from quaternion:
+[[ 8.66025404e-01 -2.77555756e-17  5.00000000e-01]
+ [ 3.53553391e-01  7.07106781e-01 -6.12372436e-01]
+ [-3.53553391e-01  7.07106781e-01  6.12372436e-01]]
+</code></pre></div></div> <h2 id="3-working-with-transforms-and-rotations"> <a href="#3-working-with-transforms-and-rotations" class="anchor-heading" aria-labelledby="3-working-with-transforms-and-rotations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3. Working with Transforms and Rotations </h2> <p>SE3 represents rigid body transformations in 3D space (position + orientation).</p> <h3 id="31-creating-se3-transforms"> <a href="#31-creating-se3-transforms" class="anchor-heading" aria-labelledby="31-creating-se3-transforms"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3.1 Creating SE3 Transforms </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a pure translation
+</span><span class="n">T_trans</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Pure translation [1, 2, 3]:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_trans</span><span class="p">)</span>
+
+<span class="c1"># Create a pure rotation
+</span><span class="n">T_rot</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rx</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Pure rotation (45° around X):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_rot</span><span class="p">)</span>
+
+<span class="c1"># Create combined transform
+</span><span class="n">T_combined</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rx</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Combined transform (translation + rotation):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_combined</span><span class="p">)</span>
+
+<span class="c1"># Extract translation and rotation
+</span><span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Translation vector:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_combined</span><span class="p">.</span><span class="n">t</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Rotation matrix:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_combined</span><span class="p">.</span><span class="n">R</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pure translation [1, 2, 3]:
+   1         0         0         1         
+   0         1         0         2         
+   0         0         1         3         
+   0         0         0         1         
+
+
+Pure rotation (45° around X):
+   1         0         0         0         
+   0         0.7071   -0.7071    0         
+   0         0.7071    0.7071    0         
+   0         0         0         1         
+
+
+Combined transform (translation + rotation):
+   1         0         0         1         
+   0         0.7071   -0.7071    2         
+   0         0.7071    0.7071    3         
+   0         0         0         1         
+
+
+Translation vector:
+[1. 2. 3.]
+
+Rotation matrix:
+[[ 1.          0.          0.        ]
+ [ 0.          0.70710678 -0.70710678]
+ [ 0.          0.70710678  0.70710678]]
+</code></pre></div></div> <h3 id="32-transform-operations"> <a href="#32-transform-operations" class="anchor-heading" aria-labelledby="32-transform-operations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3.2 Transform Operations </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create two transforms
+</span><span class="n">T1</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">T2</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Ry</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="c1"># Compose transforms
+</span><span class="n">T_result</span> <span class="o">=</span> <span class="n">T1</span> <span class="o">*</span> <span class="n">T2</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Composed transform T1 * T2:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_result</span><span class="p">)</span>
+
+<span class="c1"># Inverse transform
+</span><span class="n">T_inv</span> <span class="o">=</span> <span class="n">T1</span><span class="p">.</span><span class="n">inv</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Inverse of T1:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_inv</span><span class="p">)</span>
+
+<span class="c1"># Transform a point
+</span><span class="n">point</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">transformed_point</span> <span class="o">=</span> <span class="n">T1</span> <span class="o">*</span> <span class="n">point</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Original point: </span><span class="si">{</span><span class="n">point</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Transformed point: </span><span class="si">{</span><span class="n">transformed_point</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Composed transform T1 * T2:
+   0        -1         0         0         
+   0.7071    0         0.7071    0         
+  -0.7071    0         0.7071    0         
+   0         0         0         1         
+
+
+Inverse of T1:
+   0         1         0         0         
+  -1         0         0         1         
+   0         0         1         0         
+   0         0         0         1         
+
+
+Original point: [1 0 0]
+Transformed point: [[1.]
+ [1.]
+ [0.]]
+</code></pre></div></div> <h3 id="33-visualizing-coordinate-frames"> <a href="#33-visualizing-coordinate-frames" class="anchor-heading" aria-labelledby="33-visualizing-coordinate-frames"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 3.3 Visualizing Coordinate Frames </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create multiple transforms
+</span><span class="n">T0</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">()</span>  <span class="c1"># Identity (world frame)
+</span><span class="n">T1</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">T2</span> <span class="o">=</span> <span class="n">T1</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Ry</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">T3</span> <span class="o">=</span> <span class="n">T2</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rx</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="c1"># Plot coordinate frames
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+
+<span class="c1"># Plot each frame
+</span><span class="n">T0</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s">'0'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">T1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s">'1'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">T2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s">'2'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'green'</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">T3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s">'3'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'Z'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Multiple Coordinate Frames'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_17_0.png" alt="png"></p> <h2 id="4-robot-modeling-and-kinematics"> <a href="#4-robot-modeling-and-kinematics" class="anchor-heading" aria-labelledby="4-robot-modeling-and-kinematics"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4. Robot Modeling and Kinematics </h2> <p>Now let’s work with robot models using the Robotics Toolbox.</p> <h3 id="41-creating-a-simple-2-link-planar-robot"> <a href="#41-creating-a-simple-2-link-planar-robot" class="anchor-heading" aria-labelledby="41-creating-a-simple-2-link-planar-robot"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.1 Creating a Simple 2-Link Planar Robot </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define link lengths
+</span><span class="n">L1</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">L2</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<span class="c1"># Create robot using DH parameters
+# RevoluteDH(d, a, alpha, offset)
+</span><span class="n">robot_2link</span> <span class="o">=</span> <span class="n">DHRobot</span><span class="p">([</span>
+    <span class="n">RevoluteDH</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">L1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">RevoluteDH</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">L2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s">"2-Link Planar"</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">robot_2link</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">DH Parameters:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">robot_2link</span><span class="p">.</span><span class="n">links</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DHRobot: 2-Link Planar, 2 joints (RR), dynamics, standard DH parameters
+┌─────┬────┬─────┬──────┐
+│ θⱼ  │ dⱼ │ aⱼ  │  ⍺ⱼ  │
+├─────┼────┼─────┼──────┤
+│  q1 │  0 │   1 │ 0.0° │
+│  q2 │  0 │ 0.8 │ 0.0° │
+└─────┴────┴─────┴──────┘
+
+┌──┬──┐
+└──┴──┘
+
+
+DH Parameters:
+[RevoluteDH(d=0, a=1, ⍺=0, name = "link1", m=0, r=[0, 0, 0], I=[0, 0, 0, 0, 0, 0], Jm=0, B=0, Tc=[0, 0], G=0), RevoluteDH(d=0, a=0.8, ⍺=0, name = "link2", parent="link1", m=0, r=[0, 0, 0], I=[0, 0, 0, 0, 0, 0], Jm=0, B=0, Tc=[0, 0], G=0)]
+</code></pre></div></div> <h3 id="42-forward-kinematics"> <a href="#42-forward-kinematics" class="anchor-heading" aria-labelledby="42-forward-kinematics"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.2 Forward Kinematics </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define joint angles
+</span><span class="n">q1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Both joints at 0°
+</span><span class="n">q2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>  <span class="c1"># Both joints at 45°
+</span><span class="n">q3</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>  <span class="c1"># 60° and -30°
+</span>
+<span class="c1"># Compute forward kinematics
+</span><span class="n">T1</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+<span class="n">T2</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span>
+<span class="n">T3</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q3</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"End-effector pose for q=[0, 0]:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Position: </span><span class="si">{</span><span class="n">T1</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">End-effector pose for q=[π/4, π/4]:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Position: </span><span class="si">{</span><span class="n">T2</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">End-effector pose for q=[π/3, -π/6]:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Position: </span><span class="si">{</span><span class="n">T3</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>End-effector pose for q=[0, 0]:
+   1         0         0         1.8       
+   0         1         0         0         
+   0         0         1         0         
+   0         0         0         1         
+
+Position: [1.8 0.  0. ]
+
+End-effector pose for q=[π/4, π/4]:
+Position: [0.70710678 1.50710678 0.        ]
+
+End-effector pose for q=[π/3, -π/6]:
+Position: [1.19282032 1.2660254  0.        ]
+</code></pre></div></div> <h3 id="43-visualizing-robot-configurations"> <a href="#43-visualizing-robot-configurations" class="anchor-heading" aria-labelledby="43-visualizing-robot-configurations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.3 Visualizing Robot Configurations </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot robot in different configurations
+# Note: We'll compute and plot the robot manually for better control in Colab
+</span>
+<span class="k">def</span> <span class="nf">plot_2link_robot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">L1</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">L2</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">''</span><span class="p">):</span>
+    <span class="s">"""Manually plot 2-link robot configuration"""</span>
+    <span class="c1"># Joint positions
+</span>    <span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">L2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+
+    <span class="c1"># Plot links
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s">'b-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Link 1'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s">'r-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Link 2'</span><span class="p">)</span>
+
+    <span class="c1"># Plot joints
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Base'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'go'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Joint 1'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'rs'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'End-effector'</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'equal'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">configs</span> <span class="o">=</span> <span class="p">[</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">]</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s">'q=[0, 0]'</span><span class="p">,</span> <span class="s">'q=[π/4, π/4]'</span><span class="p">,</span> <span class="s">'q=[π/3, -π/6]'</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">titles</span><span class="p">):</span>
+    <span class="n">plot_2link_robot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Robot in Different Configurations'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_24_1.png" alt="png"></p> <h3 id="44-working-with-industrial-robots-puma-560"> <a href="#44-working-with-industrial-robots-puma-560" class="anchor-heading" aria-labelledby="44-working-with-industrial-robots-puma-560"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.4 Working with Industrial Robots (Puma 560) </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load a predefined robot model
+</span><span class="n">puma</span> <span class="o">=</span> <span class="n">rtb</span><span class="p">.</span><span class="n">models</span><span class="p">.</span><span class="n">DH</span><span class="p">.</span><span class="n">Puma560</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Puma 560 Robot:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">puma</span><span class="p">)</span>
+
+<span class="c1"># Get robot properties
+</span><span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Number of joints: </span><span class="si">{</span><span class="n">puma</span><span class="p">.</span><span class="n">n</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">DH Parameters:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">puma</span><span class="p">.</span><span class="n">links</span><span class="p">)</span>
+
+<span class="c1"># Define a joint configuration
+</span><span class="n">q_puma</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">qn</span>  <span class="c1"># Nominal pose
+</span><span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Nominal joint angles (rad): </span><span class="si">{</span><span class="n">q_puma</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Nominal joint angles (deg): </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">q_puma</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Compute forward kinematics
+</span><span class="n">T_ee</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q_puma</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">End-effector position: </span><span class="si">{</span><span class="n">T_ee</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Puma 560 Robot:
+DHRobot: Puma 560 (by Unimation), 6 joints (RRRRRR), dynamics, geometry, standard DH parameters
+┌─────┬────────┬────────┬────────┬─────────┬────────┐
+│ θⱼ  │   dⱼ   │   aⱼ   │   ⍺ⱼ   │   q⁻    │   q⁺   │
+├─────┼────────┼────────┼────────┼─────────┼────────┤
+│  q1 │ 0.6718 │      0 │  90.0° │ -160.0° │ 160.0° │
+│  q2 │      0 │ 0.4318 │   0.0° │ -110.0° │ 110.0° │
+│  q3 │   0.15 │ 0.0203 │ -90.0° │ -135.0° │ 135.0° │
+│  q4 │ 0.4318 │      0 │  90.0° │ -266.0° │ 266.0° │
+│  q5 │      0 │      0 │ -90.0° │ -100.0° │ 100.0° │
+│  q6 │      0 │      0 │   0.0° │ -266.0° │ 266.0° │
+└─────┴────────┴────────┴────────┴─────────┴────────┘
+
+┌──┬──┐
+└──┴──┘
+
+┌──────┬─────┬──────┬───────┬─────┬──────┬─────┐
+│ name │ q0  │ q1   │ q2    │ q3  │ q4   │ q5  │
+├──────┼─────┼──────┼───────┼─────┼──────┼─────┤
+│   qr │  0° │  90° │ -90°  │  0° │  0°  │  0° │
+│   qz │  0° │  0°  │  0°   │  0° │  0°  │  0° │
+│   qn │  0° │  45° │  180° │  0° │  45° │  0° │
+│   qs │  0° │  0°  │ -90°  │  0° │  0°  │  0° │
+└──────┴─────┴──────┴───────┴─────┴──────┴─────┘
+
+
+Number of joints: 6
+
+DH Parameters:
+[RevoluteDH(d=0.672, a=0, ⍺=1.57, name = "link1", qlim=[-2.79, 2.79], m=0, r=[0, 0, 0], I=[0, 0.35, 0, 0, 0, 0], Jm=0.0002, B=0.00148, Tc=[0.395, -0.435], G=-62.6), RevoluteDH(d=0, a=0.432, ⍺=0, name = "link2", parent="link1", qlim=[-1.92, 1.92], m=17.4, r=[-0.364, 0.006, 0.228], I=[0.13, 0.524, 0.539, 0, 0, 0], Jm=0.0002, B=0.000817, Tc=[0.126, -0.071], G=108), RevoluteDH(d=0.15, a=0.0203, ⍺=-1.57, name = "link3", parent="link2", qlim=[-2.36, 2.36], m=4.8, r=[-0.0203, -0.0141, 0.07], I=[0.066, 0.086, 0.0125, 0, 0, 0], Jm=0.0002, B=0.00138, Tc=[0.132, -0.105], G=-53.7), RevoluteDH(d=0.432, a=0, ⍺=1.57, name = "link4", parent="link3", qlim=[-4.64, 4.64], m=0.82, r=[0, 0.019, 0], I=[0.0018, 0.0013, 0.0018, 0, 0, 0], Jm=3.3e-05, B=7.12e-05, Tc=[0.0112, -0.0169], G=76), RevoluteDH(d=0, a=0, ⍺=-1.57, name = "link5", parent="link4", qlim=[-1.75, 1.75], m=0.34, r=[0, 0, 0], I=[0.0003, 0.0004, 0.0003, 0, 0, 0], Jm=3.3e-05, B=8.26e-05, Tc=[0.00926, -0.0145], G=71.9), RevoluteDH(d=0, a=0, ⍺=0, name = "link6", parent="link5", qlim=[-4.64, 4.64], m=0.09, r=[0, 0, 0.032], I=[0.00015, 0.00015, 4e-05, 0, 0, 0], Jm=3.3e-05, B=3.67e-05, Tc=[0.00396, -0.0105], G=76.7)]
+
+Nominal joint angles (rad): [0.         0.78539816 3.14159265 0.         0.78539816 0.        ]
+Nominal joint angles (deg): [  0.  45. 180.   0.  45.   0.]
+
+End-effector position: [ 0.59630315 -0.15005     0.65747573]
+</code></pre></div></div> <h3 id="45-inverse-kinematics"> <a href="#45-inverse-kinematics" class="anchor-heading" aria-labelledby="45-inverse-kinematics"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.5 Inverse Kinematics </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define a desired end-effector pose
+</span><span class="n">T_desired</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Desired end-effector pose:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_desired</span><span class="p">)</span>
+
+<span class="c1"># Solve inverse kinematics
+</span><span class="n">sol</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">ikine_LM</span><span class="p">(</span><span class="n">T_desired</span><span class="p">)</span>  <span class="c1"># Levenberg-Marquardt method
+</span>
+<span class="k">if</span> <span class="n">sol</span><span class="p">.</span><span class="n">success</span><span class="p">:</span>
+    <span class="n">q_ik</span> <span class="o">=</span> <span class="n">sol</span><span class="p">.</span><span class="n">q</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">IK Solution found!"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Joint angles (rad): </span><span class="si">{</span><span class="n">q_ik</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Joint angles (deg): </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">q_ik</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="c1"># Verify the solution
+</span>    <span class="n">T_verify</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q_ik</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Verification - achieved position: </span><span class="si">{</span><span class="n">T_verify</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Position error: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">norm</span><span class="p">(</span><span class="n">T_desired</span><span class="p">.</span><span class="n">t</span> <span class="o">-</span> <span class="n">T_verify</span><span class="p">.</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">6</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"IK solution not found!"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Desired end-effector pose:
+   0.7071   -0.7071    0         0.4       
+   0.7071    0.7071    0         0.3       
+   0         0         1         0.2       
+   0         0         0         1         
+
+
+IK Solution found!
+Joint angles (rad): [ 9.48298591e-01 -1.46225002e+00 -1.60209823e-01 -1.71516135e-11
+  1.62245984e+00 -1.62900427e-01]
+Joint angles (deg): [ 5.43335070e+01 -8.37807547e+01 -9.17934671e+00 -9.82715063e-10
+  9.29601014e+01 -9.33350697e+00]
+
+Verification - achieved position: [0.4 0.3 0.2]
+Position error: 0.000000
+</code></pre></div></div> <h3 id="46-jacobian-and-manipulability"> <a href="#46-jacobian-and-manipulability" class="anchor-heading" aria-labelledby="46-jacobian-and-manipulability"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 4.6 Jacobian and Manipulability </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Compute Jacobian at a configuration
+</span><span class="n">q</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">qn</span>
+<span class="n">J</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">jacob0</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>  <span class="c1"># Jacobian in world frame
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Jacobian matrix (6x6):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Compute manipulability
+</span><span class="n">m</span> <span class="o">=</span> <span class="n">puma</span><span class="p">.</span><span class="n">manipulability</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Manipulability measure: </span><span class="si">{</span><span class="n">m</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Check if at singularity
+</span><span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Jacobian condition number: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">cond</span><span class="p">(</span><span class="n">J</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">cond</span><span class="p">(</span><span class="n">J</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Warning: Close to singularity!"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Configuration is well-conditioned."</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Jacobian matrix (6x6):
+[[ 1.50050000e-01  1.43542677e-02  3.19682976e-01  0.00000000e+00
+   0.00000000e+00  0.00000000e+00]
+ [ 5.96303149e-01  3.65130371e-17  1.78170459e-17  0.00000000e+00
+   0.00000000e+00  0.00000000e+00]
+ [-5.28447268e-18  5.96303149e-01  2.90974440e-01  0.00000000e+00
+   0.00000000e+00  0.00000000e+00]
+ [-3.52180785e-17  0.00000000e+00  0.00000000e+00  7.07106781e-01
+   0.00000000e+00  1.00000000e+00]
+ [ 6.86402876e-33 -1.00000000e+00 -1.00000000e+00 -1.04530143e-16
+  -1.00000000e+00 -6.12323400e-17]
+ [ 1.00000000e+00  6.12323400e-17  6.12323400e-17 -7.07106781e-01
+   6.12323400e-17 -3.13396163e-16]]
+
+Manipulability measure: 0.0786
+
+Jacobian condition number: 7.88
+Configuration is well-conditioned.
+</code></pre></div></div> <h2 id="5-trajectory-planning-with-visualization"> <a href="#5-trajectory-planning-with-visualization" class="anchor-heading" aria-labelledby="5-trajectory-planning-with-visualization"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5. Trajectory Planning with Visualization </h2> <p>Let’s create smooth trajectories for robot motion.</p> <h3 id="51-joint-space-trajectory"> <a href="#51-joint-space-trajectory" class="anchor-heading" aria-labelledby="51-joint-space-trajectory"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5.1 Joint Space Trajectory </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">roboticstoolbox</span> <span class="kn">import</span> <span class="n">jtraj</span><span class="p">,</span> <span class="n">ctraj</span>
+
+<span class="c1"># Define start and goal joint configurations
+</span><span class="n">q_start</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">q_goal</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="c1"># Generate joint trajectory (50 steps)
+</span><span class="n">traj</span> <span class="o">=</span> <span class="n">jtraj</span><span class="p">(</span><span class="n">q_start</span><span class="p">,</span> <span class="n">q_goal</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Trajectory shape: </span><span class="si">{</span><span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Number of time steps: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Plot joint trajectories
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s">'b-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Joint 1'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Joint 1 (rad)'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Joint Space Trajectory'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s">'r-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Joint 2'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Time step'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Joint 2 (rad)'</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Trajectory shape: (50, 2)
+Number of time steps: 50
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_33_1.png" alt="png"></p> <h3 id="52-cartesian-space-trajectory"> <a href="#52-cartesian-space-trajectory" class="anchor-heading" aria-labelledby="52-cartesian-space-trajectory"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5.2 Cartesian Space Trajectory </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define start and goal poses
+</span><span class="n">T_start</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span>
+<span class="n">T_goal</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="c1"># Generate Cartesian trajectory
+</span><span class="n">T_traj</span> <span class="o">=</span> <span class="n">ctraj</span><span class="p">(</span><span class="n">T_start</span><span class="p">,</span> <span class="n">T_goal</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Number of poses in trajectory: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">T_traj</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Extract positions for plotting
+</span><span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">T</span><span class="p">.</span><span class="n">t</span> <span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">T_traj</span><span class="p">])</span>
+
+<span class="c1"># Plot 3D trajectory
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">positions</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="s">'b-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Trajectory'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">T_start</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">T_start</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">T_start</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+           <span class="n">c</span><span class="o">=</span><span class="s">'green'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Start'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">T_goal</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">T_goal</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">T_goal</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+           <span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'s'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Goal'</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'Z (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Cartesian Space Trajectory'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Number of poses in trajectory: 50
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_35_1.png" alt="png"></p> <h3 id="53-visualizing-robot-motion-along-trajectory"> <a href="#53-visualizing-robot-motion-along-trajectory" class="anchor-heading" aria-labelledby="53-visualizing-robot-motion-along-trajectory"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5.3 Visualizing Robot Motion Along Trajectory </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate trajectory for 2-link robot\n",
+</span><span class="n">q_start_2link</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">q_goal_2link</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">traj_2link</span> <span class="o">=</span> <span class="n">jtraj</span><span class="p">(</span><span class="n">q_start_2link</span><span class="p">,</span> <span class="n">q_goal_2link</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>  <span class="c1"># 50 steps
+</span>
+<span class="c1"># Plot robot at different points along trajectory
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">49</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">indices</span><span class="p">)):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">traj_2link</span><span class="p">.</span><span class="n">q</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">plot_2link_robot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s">'Step </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s">: q=[</span><span class="si">{</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">, </span><span class="si">{</span><span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">]'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Robot Motion Along Trajectory'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed x limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+WARNING:matplotlib.axes._base:Ignoring fixed y limits to fulfill fixed data aspect with adjustable data limits.
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_37_1.png" alt="png"></p> <h3 id="54-computing-end-effector-path"> <a href="#54-computing-end-effector-path" class="anchor-heading" aria-labelledby="54-computing-end-effector-path"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 5.4 Computing End-Effector Path </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Compute end-effector positions along trajectory
+</span><span class="n">ee_positions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">traj_2link</span><span class="p">.</span><span class="n">q</span><span class="p">:</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">ee_positions</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Only X and Y for planar robot
+</span>
+<span class="n">ee_positions</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">ee_positions</span><span class="p">)</span>
+
+<span class="c1"># Plot end-effector path
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ee_positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ee_positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s">'b-o'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">ee_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">ee_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+           <span class="n">c</span><span class="o">=</span><span class="s">'green'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Start'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">ee_positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">ee_positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+           <span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">'s'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Goal'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'End-Effector Path'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'equal'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Path length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ee_positions</span><span class="p">)</span><span class="si">}</span><span class="s"> points"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Start position: </span><span class="si">{</span><span class="n">ee_positions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Goal position: </span><span class="si">{</span><span class="n">ee_positions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_39_0.png" alt="png"></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Path length: 6 points
+Start position: [1.8 0. ]
+Goal position: [0.56568542 1.56568542]
+</code></pre></div></div> <h2 id="6-advanced-topics-and-visualizations"> <a href="#6-advanced-topics-and-visualizations" class="anchor-heading" aria-labelledby="6-advanced-topics-and-visualizations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6. Advanced Topics and Visualizations </h2> <p>Let’s explore some advanced concepts in robotics.</p> <h3 id="61-workspace-analysis"> <a href="#61-workspace-analysis" class="anchor-heading" aria-labelledby="61-workspace-analysis"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6.1 Workspace Analysis </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate random configurations and compute reachable positions
+</span><span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">workspace_points</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_samples</span><span class="p">):</span>
+    <span class="c1"># Random joint angles within limits
+</span>    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">workspace_points</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">workspace_points</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">workspace_points</span><span class="p">)</span>
+
+<span class="c1"># Plot workspace
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">workspace_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">workspace_points</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="n">c</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Robot Workspace (2-Link Planar Robot)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'equal'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Workspace samples: </span><span class="si">{</span><span class="n">n_samples</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Max reach: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">norm</span><span class="p">(</span><span class="n">workspace_points</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s"> m"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Min reach: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">norm</span><span class="p">(</span><span class="n">workspace_points</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s"> m"</span><span class="p">)</span>
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_42_0.png" alt="png"></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Workspace samples: 1000
+Max reach: 1.800 m
+Min reach: 0.200 m
+</code></pre></div></div> <h3 id="62-velocity-kinematics"> <a href="#62-velocity-kinematics" class="anchor-heading" aria-labelledby="62-velocity-kinematics"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6.2 Velocity Kinematics </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define a configuration and joint velocities
+</span><span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">qd</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">])</span>  <span class="c1"># Joint velocities (rad/s)
+</span>
+<span class="c1"># Compute Jacobian
+</span><span class="n">J</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">jacob0</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Jacobian (6x2 for planar robot):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">J</span><span class="p">)</span>
+
+<span class="c1"># Compute end-effector velocity
+</span><span class="n">v</span> <span class="o">=</span> <span class="n">J</span> <span class="o">@</span> <span class="n">qd</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Joint velocities: </span><span class="si">{</span><span class="n">qd</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"End-effector velocity (spatial): </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Linear velocity [vx, vy, vz]: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="si">:</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Angular velocity [wx, wy, wz]: </span><span class="si">{</span><span class="n">v</span><span class="p">[</span><span class="mi">3</span><span class="si">:</span><span class="p">]</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Jacobian (6x2 for planar robot):
+[[-1.47984744 -0.77274066]
+ [ 0.91416202  0.20705524]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 1.          1.        ]]
+
+Joint velocities: [ 0.5 -0.3]
+End-effector velocity (spatial): [-0.50810152  0.39496444  0.          0.          0.          0.2       ]
+Linear velocity [vx, vy, vz]: [-0.50810152  0.39496444  0.        ]
+Angular velocity [wx, wy, wz]: [0.  0.  0.2]
+</code></pre></div></div> <h3 id="63-creating-a-custom-robot"> <a href="#63-creating-a-custom-robot" class="anchor-heading" aria-labelledby="63-creating-a-custom-robot"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6.3 Creating a Custom Robot </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a 3-DOF robot (RRR)
+</span><span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">L3</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span>
+
+<span class="n">custom_robot</span> <span class="o">=</span> <span class="n">DHRobot</span><span class="p">([</span>
+    <span class="n">RevoluteDH</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">L1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">RevoluteDH</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">L2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">RevoluteDH</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">L3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s">"Custom 3-DOF"</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Custom 3-DOF Robot:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">custom_robot</span><span class="p">)</span>
+
+<span class="c1"># Test configuration
+</span><span class="n">q_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">T_test</span> <span class="o">=</span> <span class="n">custom_robot</span><span class="p">.</span><span class="n">fkine</span><span class="p">(</span><span class="n">q_test</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Test configuration: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">q_test</span><span class="p">)</span><span class="si">}</span><span class="s">°"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"End-effector position: </span><span class="si">{</span><span class="n">T_test</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Manual plotting function for 3-link planar robot
+</span><span class="k">def</span> <span class="nf">plot_3link_robot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]):</span>
+    <span class="s">"""Plot 3-link planar robot"""</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+    <span class="c1"># Compute joint positions
+</span>    <span class="n">p0</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">L</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">p2</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">L</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                        <span class="n">L</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">])])</span>
+
+    <span class="c1"># Plot links
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s">'b-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Link 1'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s">'g-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Link 2'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">([</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p3</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p3</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="s">'r-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Link 3'</span><span class="p">)</span>
+
+    <span class="c1"># Plot joints
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'ko'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Base'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'bo'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'go'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">'rs'</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'End-effector'</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Custom 3-DOF Robot'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'equal'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="c1"># Plot the robot
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_3link_robot</span><span class="p">(</span><span class="n">q_test</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="p">[</span><span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">,</span> <span class="n">L3</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Custom 3-DOF Robot:
+DHRobot: Custom 3-DOF, 3 joints (RRR), dynamics, standard DH parameters
+┌─────┬────┬─────┬──────┐
+│ θⱼ  │ dⱼ │ aⱼ  │  ⍺ⱼ  │
+├─────┼────┼─────┼──────┤
+│  q1 │  0 │ 0.5 │ 0.0° │
+│  q2 │  0 │ 0.4 │ 0.0° │
+│  q3 │  0 │ 0.3 │ 0.0° │
+└─────┴────┴─────┴──────┘
+
+┌──┬──┐
+└──┴──┘
+
+
+Test configuration: [ 30.  45. -60.]°
+End-effector position: [0.82631807 0.71401604 0.        ]
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_46_1.png" alt="png"></p> <h3 id="64-dynamics-if-needed"> <a href="#64-dynamics-if-needed" class="anchor-heading" aria-labelledby="64-dynamics-if-needed"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6.4 Dynamics (if needed) </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># For robots with dynamics parameters, you can compute:
+# - Inertia matrix
+# - Coriolis/centripetal matrix
+# - Gravity loading
+</span>
+<span class="c1"># Note: Our simple robots don't have mass properties defined
+# For real dynamics, you'd need to specify link masses and inertias
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Dynamics Example (conceptual):"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">For a robot with dynamics, you would compute:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"1. M(q) - Inertia matrix: robot.inertia(q)"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"2. C(q,qd) - Coriolis matrix: robot.coriolis(q, qd)"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"3. g(q) - Gravity loading: robot.gravload(q)"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Equation of motion: M(q)·q̈ + C(q,q̇)·q̇ + g(q) = τ"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Dynamics Example (conceptual):
+
+For a robot with dynamics, you would compute:
+1. M(q) - Inertia matrix: robot.inertia(q)
+2. C(q,qd) - Coriolis matrix: robot.coriolis(q, qd)
+3. g(q) - Gravity loading: robot.gravload(q)
+
+Equation of motion: M(q)·q̈ + C(q,q̇)·q̇ + g(q) = τ
+</code></pre></div></div> <h3 id="65-interpolation-between-poses"> <a href="#65-interpolation-between-poses" class="anchor-heading" aria-labelledby="65-interpolation-between-poses"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 6.5 Interpolation Between Poses </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create start and end poses
+</span><span class="n">T_A</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">T_B</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Pose A:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_A</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Pose B:"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">T_B</span><span class="p">)</span>
+
+<span class="c1"># Interpolate between poses
+</span><span class="n">n_steps</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">interpolated_poses</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">):</span>
+    <span class="n">T_interp</span> <span class="o">=</span> <span class="n">T_A</span><span class="p">.</span><span class="n">interp</span><span class="p">(</span><span class="n">T_B</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">interpolated_poses</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">T_interp</span><span class="p">)</span>
+
+<span class="c1"># Visualize interpolated frames
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">T</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">interpolated_poses</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">+</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_steps</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">T</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'Z'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Pose Interpolation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="se">\n</span><span class="s">Generated </span><span class="si">{</span><span class="n">n_steps</span><span class="si">}</span><span class="s"> interpolated poses"</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pose A:
+   1         0         0         0         
+   0         1         0         0         
+   0         0         1         0         
+   0         0         0         1         
+
+
+Pose B:
+   0        -1         0         1         
+   1         0         0         1         
+   0         0         1         0         
+   0         0         0         1         
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_50_1.png" alt="png"></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Generated 10 interpolated poses
+</code></pre></div></div> <h2 id="7-practical-examples"> <a href="#7-practical-examples" class="anchor-heading" aria-labelledby="7-practical-examples"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7. Practical Examples </h2> <p>Let’s work through some practical robotics problems.</p> <h3 id="71-pick-and-place-task"> <a href="#71-pick-and-place-task" class="anchor-heading" aria-labelledby="71-pick-and-place-task"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7.1 Pick and Place Task </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Define pick and place locations
+</span><span class="n">pick_pose</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">place_pose</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+<span class="n">approach_height</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Approach from above
+</span>
+<span class="c1"># Define waypoints
+</span><span class="n">approach_pick</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="n">pick_pose</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pick_pose</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">pick_pose</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">approach_height</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">approach_place</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="n">place_pose</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">place_pose</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">place_pose</span><span class="p">.</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">approach_height</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'deg'</span><span class="p">)</span>
+
+<span class="n">waypoints</span> <span class="o">=</span> <span class="p">[</span><span class="n">approach_pick</span><span class="p">,</span> <span class="n">pick_pose</span><span class="p">,</span> <span class="n">approach_pick</span><span class="p">,</span> <span class="n">approach_place</span><span class="p">,</span> <span class="n">place_pose</span><span class="p">,</span> <span class="n">approach_place</span><span class="p">]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Approach Pick'</span><span class="p">,</span> <span class="s">'Pick'</span><span class="p">,</span> <span class="s">'Lift'</span><span class="p">,</span> <span class="s">'Approach Place'</span><span class="p">,</span> <span class="s">'Place'</span><span class="p">,</span> <span class="s">'Retract'</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Pick and Place Waypoints:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">wp</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">waypoints</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">wp</span><span class="p">.</span><span class="n">t</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># Visualize waypoints
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+
+<span class="n">positions</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">wp</span><span class="p">.</span><span class="n">t</span> <span class="k">for</span> <span class="n">wp</span> <span class="ow">in</span> <span class="n">waypoints</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">positions</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="s">'b-o'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Path'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">wp</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">waypoints</span><span class="p">)):</span>
+    <span class="n">wp</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'Z (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Pick and Place Task Waypoints'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pick and Place Waypoints:
+Approach Pick: [0.5 0.3 0.3]
+Pick: [0.5 0.3 0.2]
+Lift: [0.5 0.3 0.3]
+Approach Place: [ 0.3  -0.4   0.35]
+Place: [ 0.3  -0.4   0.25]
+Retract: [ 0.3  -0.4   0.35]
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_53_1.png" alt="png"></p> <h3 id="72-circular-path-planning"> <a href="#72-circular-path-planning" class="anchor-heading" aria-labelledby="72-circular-path-planning"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7.2 Circular Path Planning </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate circular path in 3D space
+</span><span class="n">center</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">n_points</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">circular_path</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">theta_values</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_points</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">theta</span> <span class="ow">in</span> <span class="n">theta_values</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">center</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="c1"># Create pose tangent to circle
+</span>    <span class="n">T</span> <span class="o">=</span> <span class="n">SE3</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="n">SE3</span><span class="p">.</span><span class="n">Rz</span><span class="p">(</span><span class="n">theta</span> <span class="o">+</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s">'rad'</span><span class="p">)</span>
+    <span class="n">circular_path</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Visualize circular path
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+
+<span class="n">path_positions</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">T</span><span class="p">.</span><span class="n">t</span> <span class="k">for</span> <span class="n">T</span> <span class="ow">in</span> <span class="n">circular_path</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">path_positions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">path_positions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">path_positions</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+        <span class="s">'b-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Circular Path'</span><span class="p">)</span>
+
+<span class="c1"># Plot some frames along the path
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_points</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">circular_path</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s">''</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'X (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Y (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'Z (m)'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Circular Path with Orientation'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Generated circular path with </span><span class="si">{</span><span class="n">n_points</span><span class="si">}</span><span class="s"> points"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Center: </span><span class="si">{</span><span class="n">center</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Radius: </span><span class="si">{</span><span class="n">radius</span><span class="si">}</span><span class="s"> m"</span><span class="p">)</span>
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_55_0.png" alt="png"></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Generated circular path with 50 points
+Center: [0.5 0.  0.3]
+Radius: 0.2 m
+</code></pre></div></div> <h3 id="73-manipulability-analysis-along-trajectory"> <a href="#73-manipulability-analysis-along-trajectory" class="anchor-heading" aria-labelledby="73-manipulability-analysis-along-trajectory"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 7.3 Manipulability Analysis Along Trajectory </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate trajectory and compute manipulability at each point
+</span><span class="n">q_start</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">q_end</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">traj</span> <span class="o">=</span> <span class="n">jtraj</span><span class="p">(</span><span class="n">q_start</span><span class="p">,</span> <span class="n">q_end</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="n">manipulability_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">robot_2link</span><span class="p">.</span><span class="n">manipulability</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="n">manipulability_values</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="c1"># Plot manipulability along trajectory
+</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">))</span>
+
+<span class="c1"># Plot joint angles
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_steps</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="s">'b-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Joint 1'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_steps</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">traj</span><span class="p">.</span><span class="n">q</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span> <span class="s">'r-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Joint 2'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Joint Angle (deg)'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Joint Trajectory'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Plot manipulability
+</span><span class="n">ax2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_steps</span><span class="p">,</span> <span class="n">manipulability_values</span><span class="p">,</span> <span class="s">'g-'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Time Step'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Manipulability'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Manipulability Along Trajectory'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">manipulability_values</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span>
+            <span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s">'Mean: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">manipulability_values</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Min manipulability: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">manipulability_values</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Max manipulability: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">manipulability_values</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Mean manipulability: </span><span class="si">{</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">manipulability_values</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div> <p><img src="RoboticsToolbox_and_SpatialMath_Guide_files/output_57_0.png" alt="png"></p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Min manipulability: 0.0000
+Max manipulability: 0.0000
+Mean manipulability: 0.0000
+</code></pre></div></div> <h2 id="8-additional-resources-and-further-learning"> <a href="#8-additional-resources-and-further-learning" class="anchor-heading" aria-labelledby="8-additional-resources-and-further-learning"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8. Additional Resources and Further Learning </h2> <p>Here are some topics and resources for deeper exploration.</p> <h3 id="81-key-concepts-summary"> <a href="#81-key-concepts-summary" class="anchor-heading" aria-labelledby="81-key-concepts-summary"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8.1 Key Concepts Summary </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summary</span> <span class="o">=</span> <span class="s">"""
+📚 KEY CONCEPTS COVERED:
+
+1. SPATIAL MATHEMATICS
+   - Rotation matrices (SO3)
+   - Homogeneous transforms (SE3)
+   - Unit quaternions
+   - Euler angles and conversions
+
+2. ROBOT KINEMATICS
+   - Denavit-Hartenberg parameters
+   - Forward kinematics
+   - Inverse kinematics (numerical)
+   - Jacobian matrices
+   - Manipulability analysis
+
+3. TRAJECTORY PLANNING
+   - Joint space trajectories
+   - Cartesian space trajectories
+   - Path interpolation
+   - Waypoint navigation
+
+4. VISUALIZATION
+   - Coordinate frames
+   - Robot configurations
+   - Workspace analysis
+   - Motion animation concepts
+"""</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>📚 KEY CONCEPTS COVERED:
+
+1. SPATIAL MATHEMATICS
+   - Rotation matrices (SO3)
+   - Homogeneous transforms (SE3)
+   - Unit quaternions
+   - Euler angles and conversions
+
+2. ROBOT KINEMATICS
+   - Denavit-Hartenberg parameters
+   - Forward kinematics
+   - Inverse kinematics (numerical)
+   - Jacobian matrices
+   - Manipulability analysis
+
+3. TRAJECTORY PLANNING
+   - Joint space trajectories
+   - Cartesian space trajectories
+   - Path interpolation
+   - Waypoint navigation
+
+4. VISUALIZATION
+   - Coordinate frames
+   - Robot configurations
+   - Workspace analysis
+   - Motion animation concepts
+</code></pre></div></div> <h3 id="82-further-topics-to-explore"> <a href="#82-further-topics-to-explore" class="anchor-heading" aria-labelledby="82-further-topics-to-explore"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8.2 Further Topics to Explore </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">further_topics</span> <span class="o">=</span> <span class="s">"""
+🚀 ADVANCED TOPICS FOR FURTHER STUDY:
+
+1. ADVANCED KINEMATICS
+   - Screw theory
+   - Differential kinematics
+   - Singularity analysis
+   - Redundancy resolution
+
+2. DYNAMICS
+   - Equations of motion
+   - Newton-Euler formulation
+   - Lagrangian mechanics
+   - Computed torque control
+
+3. MOTION PLANNING
+   - Collision detection
+   - Path planning algorithms (RRT, PRM)
+   - Optimal trajectory generation
+   - Motion primitives
+
+4. CONTROL
+   - PID control
+   - Impedance control
+   - Force control
+   - Visual servoing
+
+5. ROBOT VISION
+   - Camera models
+   - Hand-eye calibration
+   - Pose estimation
+   - Object recognition
+"""</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">further_topics</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>🚀 ADVANCED TOPICS FOR FURTHER STUDY:
+
+1. ADVANCED KINEMATICS
+   - Screw theory
+   - Differential kinematics
+   - Singularity analysis
+   - Redundancy resolution
+
+2. DYNAMICS
+   - Equations of motion
+   - Newton-Euler formulation
+   - Lagrangian mechanics
+   - Computed torque control
+
+3. MOTION PLANNING
+   - Collision detection
+   - Path planning algorithms (RRT, PRM)
+   - Optimal trajectory generation
+   - Motion primitives
+
+4. CONTROL
+   - PID control
+   - Impedance control
+   - Force control
+   - Visual servoing
+
+5. ROBOT VISION
+   - Camera models
+   - Hand-eye calibration
+   - Pose estimation
+   - Object recognition
+</code></pre></div></div> <h3 id="83-useful-resources"> <a href="#83-useful-resources" class="anchor-heading" aria-labelledby="83-useful-resources"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8.3 Useful Resources </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resources</span> <span class="o">=</span> <span class="s">"""
+📖 DOCUMENTATION &amp; RESOURCES:
+
+Official Documentation:
+- Spatialmath: https://github.com/petercorke/spatialmath-python
+- Robotics Toolbox: https://github.com/petercorke/robotics-toolbox-python
+- Online Documentation: https://petercorke.github.io/robotics-toolbox-python/
+
+Books:
+- "Robotics, Vision and Control" by Peter Corke
+- "Modern Robotics" by Lynch &amp; Park
+- "Introduction to Robotics" by Craig
+
+Online Courses:
+- QUT Robot Academy: https://robotacademy.net.au/
+- Coursera: Robotics Specialization
+- MIT OpenCourseWare: Robotics courses
+
+Community:
+- GitHub Issues for both libraries
+- ROS (Robot Operating System) community
+- r/robotics on Reddit
+"""</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>📖 DOCUMENTATION &amp; RESOURCES:
+
+Official Documentation:
+- Spatialmath: https://github.com/petercorke/spatialmath-python
+- Robotics Toolbox: https://github.com/petercorke/robotics-toolbox-python
+- Online Documentation: https://petercorke.github.io/robotics-toolbox-python/
+
+Books:
+- "Robotics, Vision and Control" by Peter Corke
+- "Modern Robotics" by Lynch &amp; Park
+- "Introduction to Robotics" by Craig
+
+Online Courses:
+- QUT Robot Academy: https://robotacademy.net.au/
+- Coursera: Robotics Specialization
+- MIT OpenCourseWare: Robotics courses
+
+Community:
+- GitHub Issues for both libraries
+- ROS (Robot Operating System) community
+- r/robotics on Reddit
+</code></pre></div></div> <h3 id="84-quick-reference"> <a href="#84-quick-reference" class="anchor-heading" aria-labelledby="84-quick-reference"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 8.4 Quick Reference </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">quick_ref</span> <span class="o">=</span> <span class="s">"""
+⚡ QUICK REFERENCE:
+
+COMMON SPATIALMATH OPERATIONS:
+┌─────────────────────────────────────────────────────────┐
+│ SE3(x, y, z)              # Create translation          │
+│ SE3.Rx/Ry/Rz(angle)       # Create rotation             │
+│ T1 * T2                   # Compose transforms          │
+│ T.inv()                   # Inverse transform           │
+│ T * point                 # Transform point             │
+│ T.t                       # Get translation             │
+│ T.R                       # Get rotation matrix         │
+│ T.rpy()                   # Get RPY angles              │
+└─────────────────────────────────────────────────────────┘
+
+COMMON ROBOTICS TOOLBOX OPERATIONS:
+┌─────────────────────────────────────────────────────────┐
+│ robot.fkine(q)            # Forward kinematics          │
+│ robot.ikine_LM(T)         # Inverse kinematics          │
+│ robot.jacob0(q)           # Jacobian (world frame)      │
+│ robot.manipulability(q)   # Manipulability measure      │
+│ robot.plot(q)             # Visualize robot             │
+│ jtraj(q0, qf, n)          # Joint trajectory            │
+│ ctraj(T0, Tf, n)          # Cartesian trajectory        │
+└─────────────────────────────────────────────────────────┘
+"""</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">quick_ref</span><span class="p">)</span>
+</code></pre></div></div> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>⚡ QUICK REFERENCE:
+
+COMMON SPATIALMATH OPERATIONS:
+┌─────────────────────────────────────────────────────────┐
+│ SE3(x, y, z)              # Create translation          │
+│ SE3.Rx/Ry/Rz(angle)       # Create rotation             │
+│ T1 * T2                   # Compose transforms          │
+│ T.inv()                   # Inverse transform           │
+│ T * point                 # Transform point             │
+│ T.t                       # Get translation             │
+│ T.R                       # Get rotation matrix         │
+│ T.rpy()                   # Get RPY angles              │
+└─────────────────────────────────────────────────────────┘
+
+COMMON ROBOTICS TOOLBOX OPERATIONS:
+┌─────────────────────────────────────────────────────────┐
+│ robot.fkine(q)            # Forward kinematics          │
+│ robot.ikine_LM(T)         # Inverse kinematics          │
+│ robot.jacob0(q)           # Jacobian (world frame)      │
+│ robot.manipulability(q)   # Manipulability measure      │
+│ robot.plot(q)             # Visualize robot             │
+│ jtraj(q0, qf, n)          # Joint trajectory            │
+│ ctraj(T0, Tf, n)          # Cartesian trajectory        │
+└─────────────────────────────────────────────────────────┘
+</code></pre></div></div> <h2 id="9-practice-exercises"> <a href="#9-practice-exercises" class="anchor-heading" aria-labelledby="9-practice-exercises"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> 9. Practice Exercises </h2> <p>Try these exercises to test your understanding!</p> <h3 id="exercise-1-create-and-visualize-a-4-dof-robot"> <a href="#exercise-1-create-and-visualize-a-4-dof-robot" class="anchor-heading" aria-labelledby="exercise-1-create-and-visualize-a-4-dof-robot"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise 1: Create and visualize a 4-DOF robot </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># YOUR CODE HERE
+# Create a 4-DOF robot with your choice of link lengths
+# Compute forward kinematics for at least 3 different configurations
+# Visualize the robot in these configurations
+</span>
+<span class="k">pass</span>  <span class="c1"># Remove this and add your code
+</span></code></pre></div></div> <h3 id="exercise-2-plan-a-square-trajectory"> <a href="#exercise-2-plan-a-square-trajectory" class="anchor-heading" aria-labelledby="exercise-2-plan-a-square-trajectory"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise 2: Plan a square trajectory </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># YOUR CODE HERE
+# Create a square trajectory in Cartesian space
+# The square should have 0.2m sides
+# Generate smooth trajectories between corners
+# Visualize the complete path
+</span>
+<span class="k">pass</span>  <span class="c1"># Remove this and add your code
+</span></code></pre></div></div> <h3 id="exercise-3-workspace-boundary-analysis"> <a href="#exercise-3-workspace-boundary-analysis" class="anchor-heading" aria-labelledby="exercise-3-workspace-boundary-analysis"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Exercise 3: Workspace boundary analysis </h3> <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># YOUR CODE HERE
+# For a 2-link robot, find the exact boundary of the reachable workspace
+# Hint: Consider maximum and minimum reach configurations
+# Plot the workspace boundary as a circle/annulus
+</span>
+<span class="k">pass</span>  <span class="c1"># Remove this and add your code
+</span></code></pre></div></div> <h2 id="congratulations"> <a href="#congratulations" class="anchor-heading" aria-labelledby="congratulations"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Congratulations! </h2> <p>You’ve completed this comprehensive guide to spatialmath-python and roboticstoolbox-python!</p> <h3 id="what-youve-learned"> <a href="#what-youve-learned" class="anchor-heading" aria-labelledby="what-youve-learned"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> What you’ve learned: </h3> <ul> <li>✅ Spatial mathematics fundamentals</li> <li>✅ Transform operations and rotations</li> <li>✅ Robot modeling and kinematics</li> <li>✅ Trajectory planning</li> <li>✅ Visualization techniques</li> <li>✅ Practical robotics applications</li> </ul> <h3 id="next-steps"> <a href="#next-steps" class="anchor-heading" aria-labelledby="next-steps"><svg viewbox="0 0 16 16" aria-hidden="true"><use xlink:href="#svg-link"></use></svg></a> Next steps: </h3> <ol> <li>Experiment with the provided examples</li> <li>Try the practice exercises</li> <li>Explore the advanced topics</li> <li>Build your own robot applications!</li> </ol> <p>try it on <a href="https://colab.research.google.com/drive/1u5ooggCyM-aUGsFca0UM4m7VhvBC2dRp?usp=sharing">colabs</a></p> </main> </div> </div> <button id="search-button" class="search-button btn-reset" aria-label="Focus on search"> <svg viewbox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-search"></use></svg> </button> <div class="search-overlay"></div> </div> <script src="https://cdn.jsdelivr.net/npm/mermaid@9.1.3/dist/mermaid.min.js"></script> <script> var config = {} ; mermaid.initialize(config); window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid')); </script> </body> </html>
